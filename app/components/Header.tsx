@@ -5,7 +5,7 @@ import { FaLeaf } from 'react-icons/fa';
 
 const Header = () => {
   return (
-    <header className="bg-white shadow-sm h-45">
+    <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md shadow-sm h-16 text-xl transition-all duration-300 hover:bg-white/90">
       <div className="container mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
           <div className="flex items-center space-x-2">
