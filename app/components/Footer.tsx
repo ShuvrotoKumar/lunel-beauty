@@ -88,7 +88,7 @@ const Footer = () => {
                 placeholder="Your email"
                 className="bg-[#2D2D2D] text-white px-4 py-3 focus:outline-none w-full text-sm"
               />
-              <button className="bg-[#FF9494] text-white px-4 hover: transition">
+              <button className="bg-[#4a4a3a] text-white px-4 hover: transition">
                 <FiSend className="h-5 w-5" />
               </button>
             </div>

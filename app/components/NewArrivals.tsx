@@ -55,7 +55,7 @@ const newProducts = [
 
 const NewArrivals = () => {
   return (
-    <section className="py-16 bg-[#ffebeb]">
+    <section className="py-16 bg-[#4f4f4f]">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-bold text-center mb-12 text-gray-900">New Arrivals</h2>
         
@@ -63,7 +63,7 @@ const NewArrivals = () => {
           {newProducts.map((product) => (
             <div 
               key={product.id} 
-              className="bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow overflow-hidden border border-gray-100"
+              className="bg-[#474747] rounded-2xl shadow-sm hover:shadow-md transition-shadow overflow-hidden border border-gray-100"
             >
               <div className="relative h-60 bg-gray-50">
                 <Image
@@ -75,7 +75,7 @@ const NewArrivals = () => {
                 />
               </div>
               <div className="p-5">
-                <h3 className="text-lg font-medium text-gray-900 mb-1">{product.name}</h3>
+                <h3 className="text-lg font-medium text-white mb-1">{product.name}</h3>
                 <span className="text-[#FF9494] font-bold">${product.price.toFixed(2)}</span>
               </div>
             </div>

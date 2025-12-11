@@ -32,13 +32,13 @@ const testimonials = [
 
 const Testimonials = () => {
   return (
-    <section className="py-20 bg-[#ffebeb]">
+    <section className="py-20 bg-[#4a4a3a]">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-bold text-center mb-12">What Our Customers Say</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {testimonials.map((testimonial) => (
-            <div key={testimonial.id} className="bg-gray-50 p-6 rounded-lg">
+            <div key={testimonial.id} className="bg-[#59594a] p-6 rounded-lg">
               <div className="flex items-center mb-4">
                 <div className="relative h-12 w-12 rounded-full overflow-hidden mr-4">
                   <Image
@@ -49,8 +49,8 @@ const Testimonials = () => {
                   />
                 </div>
                 <div>
-                  <h4 className="font-semibold">{testimonial.name}</h4>
-                  <p className="text-sm text-gray-600">{testimonial.role}</p>
+                  <h4 className="font-semibold text-white">{testimonial.name}</h4>
+                  <p className="text-sm text-white">{testimonial.role}</p>
                 </div>
               </div>
               <div className="flex mb-4">
@@ -61,7 +61,7 @@ const Testimonials = () => {
                   />
                 ))}
               </div>
-              <p className="text-gray-700 italic">"{testimonial.comment}"</p>
+              <p className="text-white italic">"{testimonial.comment}"</p>
             </div>
           ))}
         </div>

@@ -4,9 +4,9 @@ import { FiExternalLink } from 'react-icons/fi';
 
 const IngredientSafety = () => {
   return (
-    <section className="py-16 bg-gray-100">
+    <section className="py-16 bg-[#0a0a0a]">
       <div className="container mx-auto px-4">
-        <div className="bg-white rounded-2xl p-8 md:p-12 text-center max-w-4xl mx-auto shadow-sm">
+        <div className="bg-[#1f1f1f] rounded-2xl p-8 md:p-12 text-center max-w-4xl mx-auto shadow-sm">
           <div className="flex justify-center mb-6">
             <div className=" p-4 rounded-full">
               <svg 
@@ -19,8 +19,8 @@ const IngredientSafety = () => {
               </svg>
             </div>
           </div>
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">Ingredient Safety Check</h2>
-          <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
+          <h2 className="text-3xl font-bold text-white mb-4">Ingredient Safety Check</h2>
+          <p className="text-white mb-8 max-w-2xl mx-auto">
             Concerned about what's in your beauty products? Check the safety of any ingredient in our database.
           </p>
           <button className="bg-[#FF9494] text-white px-8 py-3 rounded-full font-medium hover:opacity-90 flex items-center mx-auto">

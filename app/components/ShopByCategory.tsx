@@ -37,13 +37,13 @@ const categories = [
 
 const ShopByCategory = () => {
   return (
-    <section className="py-16 bg-[#ffebeb]">
+    <section className="py-16 bg-[#4f4f4f]">
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between items-center mb-10">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4 md:mb-0">Shop by Category</h2>
+          <h2 className="text-3xl font-bold text-white mb-4 md:mb-0">Shop by Category</h2>
           <Link 
             href="/shop" 
-            className="flex items-center text-[#FF9494] hover:text-pink-700 transition-colors"
+            className="flex items-center text-white hover:text-pink-700 transition-colors"
           >
             View all categories
             <FiArrowRight className="ml-2" />
@@ -54,7 +54,7 @@ const ShopByCategory = () => {
           {categories.map((category) => (
             <div 
               key={category.id} 
-              className="bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow overflow-hidden border border-gray-100"
+              className="bg-[#474747] rounded-2xl shadow-sm hover:shadow-md transition-shadow overflow-hidden border border-gray-100"
             >
               <div className="relative h-60">
                 <Image
@@ -65,10 +65,10 @@ const ShopByCategory = () => {
                 />
               </div>
               <div className="p-5 text-center">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">{category.name}</h3>
+                <h3 className="text-lg font-semibold text-white mb-3">{category.name}</h3>
                 <Link 
                   href={category.link}
-                  className="inline-block bg-[#FF9494] text-white px-6 py-2 rounded-full text-sm font-medium hover:opacity-90 transition-opacity"
+                  className="inline-block bg-[#5b5c4e] text-white px-6 py-2 rounded-full text-sm font-medium hover:opacity-90 transition-opacity"
                 >
                   Shop Category
                 </Link>
