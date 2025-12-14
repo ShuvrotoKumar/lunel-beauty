@@ -1,108 +1,125 @@
-'use client';
-
-import { FiFacebook, FiTwitter, FiInstagram, FiYoutube, FiSend } from 'react-icons/fi';
+import React from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
-import { FaLeaf } from 'react-icons/fa';
+import { FaInstagram, FaFacebookF, FaTwitter, FaPinterestP } from 'react-icons/fa';
+const socialLinks = [
+    { name: 'Instagram', href: '#', icon: <FaInstagram /> },
+    { name: 'Facebook', href: '#', icon: <FaFacebookF /> },
+    { name: 'Twitter', href: '#', icon: <FaTwitter /> },
+    { name: 'Pinterest', href: '#', icon: <FaPinterestP /> },
+];
 
-const Footer = () => {
-  const footerLinks = [
+const footerLinks = [
     {
-      title: 'Products',
-      links: [
-        { name: 'Skincare', href: '/products/skincare' },
-        { name: 'Makeup', href: '/products/makeup' },
-        { name: 'Body Care', href: '/products/body-care' },
-        { name: 'Gift Sets', href: '/gift-sets' }
-      ]
+        title: 'Shop',
+        links: [
+            { name: 'All Products', href: '/products' },
+            { name: 'New Arrivals', href: '/new-arrivals' },
+            { name: 'Best Sellers', href: '/best-sellers' },
+            { name: 'Gift Sets', href: '/gift-sets' },
+        ],
     },
     {
-      title: 'Support',
-      links: [
-        { name: 'Contact Us', href: '/contact' },
-        { name: 'Shipping Info', href: '/shipping' },
-        { name: 'Returns', href: '/returns' },
-        { name: 'FAQ', href: '/faq' }
-      ]
-    }
-  ];
+        title: 'About',
+        links: [
+            { name: 'Our Story', href: '/about' },
+            { name: 'Ingredients', href: '/ingredients' },
+            { name: 'Sustainability', href: '/sustainability' },
+            { name: 'Blog', href: '/blog' },
+        ],
+    },
+    {
+        title: 'Support',
+        links: [
+            { name: 'Contact Us', href: '/contact' },
+            { name: 'FAQs', href: '/faq' },
+            { name: 'Shipping & Returns', href: '/shipping-returns' },
+            { name: 'Privacy Policy', href: '/privacy' },
+        ],
+    },
+];
 
-  const socialLinks = [
-    { icon: <FiInstagram className="h-5 w-5" />, href: '#' },
-    { icon: <FiFacebook className="h-5 w-5" />, href: '#' },
-    { icon: <FiTwitter className="h-5 w-5" />, href: '#' },
-    { icon: <FiYoutube className="h-5 w-5" />, href: '#' }
-  ];
+const Footer = () => {
+    return (
+        <footer className="bg-[#1a1a1a] text-white pt-16 pb-8">
+            <div className="container mx-auto px-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
+                    <div className="lg:col-span-2">
+                        <div className="flex items-center mb-6">
+                            <Link href="/">
+                            <div className="relative w-40 h-14 md:w-48 md:h-16 mr-3">
+                                    
+                                <Image
+                                    src="/images/logo.png"
+                                    alt="Lunel Beauty"
+                                    fill
+                                    sizes="(max-width: 768px) 10rem, 12rem"
+                                    className="object-contain"
+                                />
+                            </div>
+                            </Link>
+                        </div>
+                        <p className="text-gray-400 mb-6">
+                            Elevate your beauty routine with our natural, effective skincare products.
+                            Crafted with care for you and the planet.
+                        </p>
+                        <div className="flex space-x-4">
+                            {socialLinks.map((social) => (
+                                <a
+                                    key={social.name}
+                                    href={social.href}
+                                    className="flex items-center justify-center w-10 h-10 rounded-full border border-white text-white hover:bg-white hover:text-gray-900 transition-colors"
+                                    aria-label={social.name}
+                                >
+                                    {social.icon}
+                                </a>
+                            ))}
+                        </div>
+                    </div>
 
-  return (
-    <footer className="bg-[#111826] text-white py-12">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
-          <div className="lg:col-span-1">
-            <div className="flex items-center mb-4">
-              <FaLeaf className="text-2xl mr-2" />
-              <Link href="/" className="text-2xl font-bold">LUNÉL</Link>
+                    {footerLinks.map((section) => (
+                        <div key={section.title}>
+                            <h3 className="text-lg font-semibold mb-4">{section.title}</h3>
+                            <ul className="space-y-3">
+                                {section.links.map((link) => (
+                                    <li key={link.name}>
+                                        <Link href={link.href}>
+                                            <span className="text-gray-400 hover:text-white transition-colors cursor-pointer">
+                                                {link.name}
+                                            </span>
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    ))}
+                </div>
+
+                <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+                    <p className="text-gray-400 text-sm mb-4 md:mb-0">
+                        © {new Date().getFullYear()} Lunel Beauty. All rights reserved.
+                    </p>
+                    <div className="flex space-x-6">
+                        <Link href="/privacy">
+                            <span className="text-gray-400 hover:text-white text-sm cursor-pointer">
+                                Privacy Policy
+                            </span>
+                        </Link>
+                        <Link href="/terms">
+                            <span className="text-gray-400 hover:text-white text-sm cursor-pointer">
+                                Terms of Service
+                            </span>
+                        </Link>
+                        <Link href="/cookies">
+                            <span className="text-gray-400 hover:text-white text-sm cursor-pointer">
+                                Cookies
+                            </span>
+                        </Link>
+                    </div>
+                </div>
             </div>
-            <p className="text-gray-400 mb-6 text-sm">
-              Crafting beauty through nature's finest ingredients, bringing you closer to your most radiant self.
-            </p>
-            <div className="flex space-x-4">
-              {socialLinks.map((social, index) => (
-                <a 
-                  key={index} 
-                  href={social.href} 
-                  className="text-gray-400 hover:text-white transition-colors"
-                  aria-label={social.href.replace('#', '')}
-                >
-                  {social.icon}
-                </a>
-              ))}
-            </div>
-          </div>
-
-          {footerLinks.map((column) => (
-            <div key={column.title}>
-              <h3 className="text-lg font-semibold mb-6">{column.title}</h3>
-              <ul className="space-y-4">
-                {column.links.map((link) => (
-                  <li key={link.name}>
-                    <Link 
-                      href={link.href} 
-                      className="text-gray-400 hover:text-white transition-colors text-sm"
-                    >
-                      {link.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-
-          <div>
-            <h3 className="text-lg font-semibold mb-6">Newsletter</h3>
-            <p className="text-gray-400 mb-4 text-sm">
-              Stay updated with our latest products and beauty tips.
-            </p>
-            <div className="flex">
-              <input
-                type="email"
-                placeholder="Your email"
-                className="bg-[#2D2D2D] text-white px-4 py-3 focus:outline-none w-full text-sm"
-              />
-              <button className="bg-[#4a4a3a] text-white px-4 hover: transition">
-                <FiSend className="h-5 w-5" />
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <div className="border-t border-gray-800 pt-8 text-center">
-          <p className="text-gray-500 text-sm">
-            &copy; 2025 Lunel Beauty. All rights reserved.
-          </p>
-        </div>
-      </div>
-    </footer>
-  );
+        </footer>
+    );
 };
 
 export default Footer;

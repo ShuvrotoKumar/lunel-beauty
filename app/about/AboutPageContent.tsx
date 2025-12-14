@@ -8,226 +8,164 @@ const AboutPageContent = () => {
     return (
         <div className="bg-white">
             <Header />
-            {/* Our Story Section */}
-            <section className="relative py-16 bg-cover bg-no-repeat bg-center w-full h-[550px]"
-                style={{ backgroundImage: 'url( images/a-bg.png)' }}
-            >
-                {/* Content Container */}
-                <div className="px-4 max-w-6xl mx-auto">
-                    <div className="grid md:grid-cols-2 gap-12 items-center relative">
-                        <div className="relative h-96 rounded-2xl overflow-hidden shadow-lg">
-                            <Image
-                                src="/images/a1.png"
-                                alt="BeautyGlow founder Sarah Johnson in our lab"
-                                fill
-                                className="object-cover"
-                                sizes="(max-width: 768px) 100vw, 50vw"
-                                priority
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-br from-pink-100/20 to-purple-100/20" />
-                        </div>
-                        <div className="p-5 rounded-2xl backdrop-blur-sm">
-                            <h2 className="text-4xl font-bold text-gray-800 mb-6">Our Story</h2>
-                            <p className="text-gray-600 mb-6">
-                                Founded in 2015, BeautyGlow was born from a simple idea: beauty products should be as good for your skin as they are for the planet. Our founder, Sarah Johnson, started mixing natural ingredients in her kitchen, frustrated by the lack of clean, effective skincare options.
-                            </p>
-                            <p className="text-gray-600 mb-8">
-                                What began as a passion project quickly grew into a movement, with thousands of customers experiencing the BeautyGlow difference. Today, we're proud to be a certified B-Corp, committed to sustainability and ethical practices at every step.
-                            </p>
-                            <div className="flex items-center space-x-4 mt-8">
-                                <div className="w-12 h-12 rounded-full bg-pink-100 flex items-center justify-center">
-                                    <FaHeart className="w-6 h-6 text-pink-500" />
+            
+            {/* Hero Section */}
+            <section className="relative h-[70vh] w-full">
+                <div className="absolute inset-0">
+                    <Image
+                        src="/images/a-hero.png"
+                        alt="Lunel Beauty"
+                        fill
+                        className="object-cover"
+                        priority
+                    />
+                    <div className="absolute inset-0 bg-black/40"></div>
+                </div>
+                <div className="relative z-10 h-full flex items-center">
+                    <div className="container mx-auto px-4 text-center text-white">
+                        <h1 className="text-5xl md:text-6xl font-serif font-light mb-6">About Lunel</h1>
+                        <p className="text-xl md:text-2xl max-w-3xl mx-auto">Crafting beauty with nature's finest ingredients since 2015</p>
+                    </div>
+                </div>
+            </section>
+
+            {/* Hero Section */}
+            <section className="py-20 bg-[#1a1a1a] text-white">
+                <div className="container mx-auto px-4">
+                    <div className="flex flex-col md:flex-row items-center gap-12">
+                        {/* Left Column - Text Content */}
+                        <div className="md:w-1/2 mb-12 md:mb-0 md:pr-12">
+                            <p className="text-amber-200 text-xl mb-4">Est. 2019</p>
+                            <h1 className="text-5xl md:text-6xl font-serif font-light mb-8 leading-tight">
+                                A Journey Rooted in <span className="text-amber-200">Science & Nature</span>
+                            </h1>
+                            
+                            <div className="space-y-7 text-gray-300 text-lg">
+                                <p>
+                                    Lumière Dermatology was born from a simple belief: that effective skincare doesn't require compromise. 
+                                    Founded by dermatologists and botanical researchers, we set out to create products that honor both 
+                                    the precision of clinical science and the wisdom of nature.
+                                </p>
+                                <p>
+                                    Every formulation begins in our laboratory, where we meticulously test and refine ingredients 
+                                    sourced from sustainable farms around the world. Our commitment is to transparency, efficacy, 
+                                    and respect for both skin and environment.
+                                </p>
+                                <p>
+                                    We believe beauty is personal, inclusive, and rooted in health. Our products are designed for 
+                                    all skin types, all identities, and all those who seek a more mindful approach to self-care.
+                                </p>
+                            </div>
+
+                            {/* Stats Section */}
+                            <div className="grid grid-cols-3 gap-8 mt-16">
+                                <div>
+                                    <p className="text-4xl font-bold text-amber-200">98%</p>
+                                    <p className="text-base text-gray-400">Natural Ingredients</p>
                                 </div>
                                 <div>
-                                    <p className="font-semibold text-gray-800">Sarah Johnson</p>
-                                    <p className="text-sm text-gray-500">Founder & CEO, BeautyGlow</p>
+                                    <p className="text-4xl font-bold text-amber-200">5+</p>
+                                    <p className="text-base text-gray-400">Years Research</p>
+                                </div>
+                                <div>
+                                    <p className="text-4xl font-bold text-amber-200">50K+</p>
+                                    <p className="text-base text-gray-400">Happy Customers</p>
                                 </div>
                             </div>
+                        </div>
+
+                        {/* Right Column - Image */}
+                        <div className="md:w-2/5 h-[700px] relative rounded-lg overflow-hidden transition-transform duration-300 hover:scale-105">
+                            <Image
+                                src="/images/a1.png"
+                                alt="Lumière Dermatology Skincare Products"
+                                fill
+                                className="object-cover"
+                                priority
+                            />
                         </div>
                     </div>
                 </div>
             </section>
+           
 
             {/* Mission & Values */}
-            <section className="py-16 bg-[#ffebeb]">
-                <div className="max-w-6xl mx-auto px-4">
-                    <div className="text-center max-w-3xl mx-auto mb-12">
-                        <h2 className="text-4xl font-bold text-gray-800 mb-4">Our Mission & Values</h2>
-                        <p className="text-gray-600">
-                            We're on a mission to create clean, effective beauty products that you can feel good about using every day.
-                        </p>
+            {/* Our Values Section */}
+            <section className="py-20 bg-black text-white">
+                <div className="container mx-auto px-4">
+                    <div className="text-center mb-16">
+                        <p className="text-amber-200 text-lg mb-3">Our Values</p>
+                        <h2 className="text-4xl md:text-5xl font-serif font-light">What Drives Us Forward</h2>
                     </div>
 
-                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                        {[
-                            {
-                                icon: <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-4">
-                                    <FaLeaf className="w-8 h-8 text-green-500" />
-                                </div>,
-                                title: "Natural Ingredients",
-                                description: "We source only the finest botanical ingredients, carefully selected for their purity and effectiveness.",
-                            },
-                            {
-                                icon: <div className="w-16 h-16 rounded-full bg-red-100 flex items-center justify-center mx-auto mb-4">
-                                    <FaFlask className="w-8 h-8 text-red-500" />
-                                </div>,
-                                title: "Dermatologically Safe",
-                                description: "All our products are tested and approved by dermatologists."
-                            },
-                            {
-                                icon: <div className="w-16 h-16 rounded-full bg-pink-100 flex items-center justify-center mx-auto mb-4">
-                                    <FaHeart className="w-8 h-8 text-pink-500" />
-                                </div>,
-                                title: "Ethical & Cruelty-Free",
-                                description: "We never test on animals and are certified cruelty-free by Leaping Bunny."
-                            },
-                            {
-                                icon: <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-4">
-                                    <FaRecycle className="w-8 h-8 text-green-500" />
-                                </div>,
-                                title: "Sustainability Focused",
-                                description: "From sourcing to packaging, we prioritize the planet in every decision."
-                            }
-                        ].map((item, index) => (
-                            <div key={index} className={`bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow`}>
-                                {item.icon}
-                                <h3 className="text-xl font-semibold mb-2 text-gray-800">{item.title}</h3>
-                                <p className="text-gray-600">{item.description}</p>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+                        {/* Clean Ingredients */}
+                        <div className="bg-[#1a1a1a] p-8 rounded-lg text-center transition-transform duration-300 hover:scale-105">
+                            <div className="w-16 h-16 rounded-full bg-amber-900/30 flex items-center justify-center mx-auto mb-6">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-amber-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                                </svg>
                             </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* What Makes Us Unique */}
-            <section className="py-16 px-4 mx-auto bg-[#ffebeb]">
-                <div className="text-center max-w-3xl mx-auto mb-12">
-                    <h2 className="text-4xl font-bold text-gray-800 mb-4">What Makes Us Unique</h2>
-                    <p className="text-gray-600">
-                        We're not just another beauty brand. Here's what sets us apart:
-                    </p>
-                </div>
-
-                <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-                    {[
-                        {
-                            icon: (
-                                <div className="w-16 h-16 rounded-full bg-red-100 flex items-center justify-center mx-auto mb-4">
-                                    <FaSearch className="w-6 h-6 text-red-500" />
-                                </div>
-                            ),
-                            title: "Ingredient Transparency",
-                            description: "We believe in complete honesty about what goes into our products.",
-                            points: [
-                                "Full ingredient disclosure",
-                                "No hidden nasties",
-                                "Sourcing information available"
-                            ],
-                            bgColor: "bg-[#FDF2F8]"
-                        },
-                        {
-                            icon: (
-                                <div className="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center mx-auto mb-4">
-                                    <FaFlask className="w-6 h-6 text-blue-500" />
-                                </div>
-                            ),
-                            title: "Premium Formulations",
-                            description: "Science meets nature in our advanced skincare solutions.",
-                            points: [
-                                "Science-backed ingredients",
-                                "Optimal concentrations",
-                                "Clinically proven results"
-                            ],
-                            bgColor: "bg-[#FDF2F8]"
-                        },
-                        {
-                            icon: (
-                                <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-4">
-                                    <FaUsers className="w-6 h-6 text-green-500" />
-                                </div>
-                            ),
-                            title: "Community Driven",
-                            description: "Your voice shapes our products and mission.",
-                            points: [
-                                "Customer feedback focused",
-                                "Inclusive product development",
-                                "Regular community events"
-                            ],
-                            bgColor: "bg-[#FDF2F8]"
-                        }
-                    ].map((item, index) => (
-                        <div key={index} className={`${item.bgColor} p-8 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300`}>
-                            <div className="text-center">
-                                {item.icon}
-                                <h3 className="text-xl font-bold text-gray-800 mb-3">{item.title}</h3>
-                                <p className="text-gray-600 mb-6">{item.description}</p>
-                            </div>
-                            <ul className="space-y-3">
-                                {item.points.map((point, i) => (
-                                    <li key={i} className="flex items-start">
-                                        <svg className="w-5 h-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                                        </svg>
-                                        <span className="text-gray-700">{point}</span>
-                                    </li>
-                                ))}
-                            </ul>
+                            <h3 className="text-xl font-medium mb-3">Clean Ingredients</h3>
+                            <p className="text-gray-400 text-sm leading-relaxed">We use only the purest, most effective ingredients nature has to offer.</p>
                         </div>
-                    ))}
-                </div>
-            </section>
 
-            {/* Behind The Scenes */}
-            <section className="py-16 bg-gray-50">
-                <div className="max-w-6xl mx-auto px-4">
-                    <div className="text-center max-w-3xl mx-auto mb-12">
-                        <h2 className="text-4xl font-bold text-gray-800 mb-4">Behind The Scenes</h2>
-                        <p className="text-gray-600">
-                            Take a peek at how we create our products with care and precision.
-                        </p>
-                    </div>
-
-                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                        {[
-                            {
-                                src: "/images/a2.png",
-                                title: "Our Lab",
-                                description: "Where science meets nature"
-                            },
-                            {
-                                src: "/images/a3.png",
-                                title: "Ingredients",
-                                description: "Sourcing the finest natural ingredients"
-                            },
-                            {
-                                src: "/images/a4.png",
-                                title: "Production",
-                                description: "Handcrafted with care"
-                            },
-                            {
-                                src: "/images/a5.png",
-                                title: "Quality Control",
-                                description: "Ensuring the highest standards"
-                            }
-                        ].map((item, index) => (
-                            <div key={index} className="group relative h-64 rounded-lg overflow-hidden">
-                                <Image
-                                    src={item.src}
-                                    alt={item.title}
-                                    fill
-                                    className="object-cover group-hover:scale-105 transition-transform duration-300"
-                                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-                                />
-                                <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors" />
-                                <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
-                                    <p className="font-medium">{item.title}</p>
-                                    <p className="text-sm opacity-90">{item.description}</p>
-                                </div>
+                        {/* Research-Based */}
+                        <div className="bg-[#1a1a1a] p-8 rounded-lg text-center transition-transform duration-300 hover:scale-105">
+                            <div className="w-16 h-16 rounded-full bg-amber-900/30 flex items-center justify-center mx-auto mb-6">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-amber-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                                </svg>
                             </div>
-                        ))}
+                            <h3 className="text-xl font-medium mb-3">Research-Based</h3>
+                            <p className="text-gray-400 text-sm leading-relaxed">Every formula is backed by extensive scientific research and testing.</p>
+                        </div>
+
+                        {/* Eco Conscious */}
+                        <div className="bg-[#1a1a1a] p-8 rounded-lg text-center transition-transform duration-300 hover:scale-105">
+                            <div className="w-16 h-16 rounded-full bg-amber-900/30 flex items-center justify-center mx-auto mb-6">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-amber-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                                </svg>
+                            </div>
+                            <h3 className="text-xl font-medium mb-3">Eco Conscious</h3>
+                            <p className="text-gray-400 text-sm leading-relaxed">We're committed to sustainability and reducing our environmental impact.</p>
+                        </div>
+
+                        {/* Inclusive Beauty */}
+                        <div className="bg-[#1a1a1a] p-8 rounded-lg text-center transition-transform duration-300 hover:scale-105">
+                            <div className="w-16 h-16 rounded-full bg-amber-900/30 flex items-center justify-center mx-auto mb-6">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-amber-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                                </svg>
+                            </div>
+                            <h3 className="text-xl font-medium mb-3">Inclusive Beauty</h3>
+                            <p className="text-gray-400 text-sm leading-relaxed">We celebrate diversity and create products for all skin types and tones.</p>
+                        </div>
                     </div>
                 </div>
             </section>
+
+            {/* Experience The Difference Section */}
+            <section className="py-20 bg-black text-white">
+                <div className="container mx-auto px-4 text-center">
+                    <h2 className="text-4xl md:text-5xl font-serif font-light mb-6">
+                        Experience The <span className="text-amber-200">Difference</span>
+                    </h2>
+                    <p className="text-lg text-gray-300 max-w-2xl mx-auto mb-10 leading-relaxed">
+                        Join thousands who have discovered the perfect balance of science and nature. Your skin deserves the best.
+                    </p>
+                    <div className="flex flex-col sm:flex-row justify-center gap-4">
+                        <button className="bg-amber-200 text-gray-900 px-8 py-3 rounded-full font-medium hover:bg-amber-300 transition-colors duration-300">
+                            Shop Now
+                        </button>
+                        <button className="border-2 border-amber-200 text-amber-200 px-8 py-3 rounded-full font-medium hover:bg-amber-200/10 transition-colors duration-300">
+                            Contact Us
+                        </button>
+                    </div>
+                </div>
+            </section>
+            
             <Footer />
         </div>
     );

@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
-import { FaStar, FaStarHalfAlt, FaRegStar, FaShoppingCart, FaFilter, FaTh, FaThList } from 'react-icons/fa';
+import { FaStar, FaStarHalfAlt, FaRegStar, FaShoppingCart, FaFilter, FaTh, FaThList, FaEye } from 'react-icons/fa';
 import Image from 'next/image';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -15,7 +15,7 @@ const products = [
     price: 68.00,
     rating: 5,
     reviews: 120,
-    image: '/images/d1.png'
+    image: '/images/p1.png'
   },
   {
     id: 2,
@@ -24,7 +24,7 @@ const products = [
     price: 24.99,
     rating: 4.5,
     reviews: 89,
-    image: '/images/d2.png'
+    image: '/images/p2.png'
   },
   {
     id: 3,
@@ -33,7 +33,7 @@ const products = [
     price: 42.50,
     rating: 4.8,
     reviews: 156,
-    image: '/images/d3.png'
+    image: '/images/p3.png'
   },
   {
     id: 4,
@@ -42,7 +42,7 @@ const products = [
     price: 38.00,
     rating: 4.7,
     reviews: 203,
-    image: '/images/d4.png'
+    image: '/images/p1.png'
   },
   {
     id: 5,
@@ -51,7 +51,7 @@ const products = [
     price: 29.99,
     rating: 4.6,
     reviews: 98,
-    image: '/images/d5.png'
+    image: '/images/p2.png'
   },
   {
     id: 6,
@@ -60,7 +60,7 @@ const products = [
     price: 78.00,
     rating: 4.9,
     reviews: 167,
-    image: '/images/d1.png'
+    image: '/images/p3.png'
   },
   {
     id: 7,
@@ -69,7 +69,7 @@ const products = [
     price: 78.00,
     rating: 4.9,
     reviews: 167,
-    image: '/images/d2.png'
+    image: '/images/p1.png'
   },
   {
     id: 8,
@@ -78,7 +78,16 @@ const products = [
     price: 78.00,
     rating: 4.9,
     reviews: 167,
-    image: '/images/d3.png'
+    image: '/images/p2.png'
+  },
+  {
+    id: 9,
+    name: 'Floral Essence Perfume',
+    description: 'Eau de Parfum',
+    price: 78.00,
+    rating: 4.9,
+    reviews: 167,
+    image: '/images/p3.png'
   },
 ];
 
@@ -103,35 +112,53 @@ const ProductCard = ({ product }: { product: typeof products[0] }) => {
   };
 
   return (
-    <div className="bg-white rounded-lg overflow-hidden">
-      <div className="relative h-64">
+    <div className="bg-[#1A1A1A] rounded-lg overflow-hidden w-full">
+      {/* Product Image */}
+      <div className="relative aspect-square w-full">
         <Image 
           src={product.image} 
-          alt={product.name} 
-          layout="fill"
-          objectFit="cover"
-          className="hover:opacity-90 transition-opacity"
+          alt={product.name}
+          fill
+          className="object-cover w-full h-full transition-transform duration-300 hover:scale-105"
         />
       </div>
-      <div className="p-4">
-        <h3 className="font-medium text-gray-800 mb-1">{product.name}</h3>
-        <p className="text-gray-500 text-sm mb-2">{product.description}</p>
-        <div className="flex items-center mb-2">
-          <div className="flex mr-1">
+      
+      {/* Product Info */}
+      <div className="">
+        <h3 className="font-medium text-white text-lg mb-1">{product.name}</h3>
+        <p className="text-gray-400 text-sm mb-2">{product.description}</p>
+        
+        {/* Rating */}
+        <div className="flex items-center mb-3">
+          <div className="flex text-yellow-400">
             {renderStars()}
           </div>
-          <span className="text-xs text-gray-500">({product.reviews})</span>
+          <span className="text-gray-400 text-xs ml-1">({product.reviews})</span>
         </div>
-        <div className="flex justify-between items-center mt-3">
-          <span className="font-bold text-gray-900">${product.price.toFixed(2)}</span>
+
+        {/* Price */}
+        <p className="text-white text-xl font-bold mb-4">${product.price.toFixed(2)}</p>
+
+        {/* Buttons */}
+        <div className="flex gap-2">
           <button 
-            className="bg-[#ff9494] text-gray-700 border border-gray-300 px-3 py-1 rounded-full text-sm flex items-center hover:bg-gray-50"
+            className="bg-[#F8B319] hover:bg-[#e6a30e] text-black font-medium py-2 px-4 rounded flex-1 flex items-center justify-center"
+            onClick={(e) => {
+              e.stopPropagation();
+              // Add to cart logic here
+            }}
+          >
+            <FaShoppingCart className="mr-2" />
+            Add to Cart
+          </button>
+          <button 
+            className="border border-gray-600 hover:bg-gray-800 text-white p-2 rounded flex items-center justify-center"
             onClick={(e) => {
               e.stopPropagation();
               router.push(`/products/${product.id}`);
             }}
           >
-            <FaShoppingCart className="mr-1" /> Add
+            <FaEye />
           </button>
         </div>
       </div>
@@ -250,24 +277,24 @@ export default function ProductsPage() {
   };
 
   return (
-    <div className="w-full">
+    <div className="min-h-screen bg-[#171717] text-white">
       <Header />
       <div className="container mx-auto px-4 py-8">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">All Products</h1>
-          <p className="text-gray-600">Discover our complete collection of premium beauty products.</p>
+          <h1 className="text-3xl font-bold text-white mb-2">All Products</h1>
+          <p className="text-gray-400">Discover our complete collection of premium beauty products.</p>
         </div>
 
         <div className="flex flex-col md:flex-row gap-8">
           {/* Sidebar */}
           <div className="w-full md:w-64 flex-shrink-0">
-            <div className="bg-white p-4 rounded-lg shadow-sm sticky top-4">
+            <div className="bg-[#292929] text-white p-4 rounded-lg shadow-sm sticky top-4">
               <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-700 mb-2">Sort By</label>
+                <label className="block text-sm font-medium text-white mb-2">Sort By</label>
                 <select 
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
-                  className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
+                  className="w-full border border-white border-2 bg-[#171717] text-white rounded-md px-3 py-2 text-sm"
                 >
                   <option>Best Selling</option>
                   <option>Price: Low to High</option>
@@ -278,7 +305,7 @@ export default function ProductsPage() {
               </div>
 
               <div className="mb-6">
-                <h3 className="font-medium text-gray-900 mb-3">Categories</h3>
+                <h3 className="font-medium text-white mb-3">Categories</h3>
                 <div className="space-y-2">
                   {categories.map((category) => (
                     <div key={category} className="flex items-center">
@@ -287,9 +314,9 @@ export default function ProductsPage() {
                         id={category} 
                         checked={selectedCategories.includes(category)}
                         onChange={() => toggleCategory(category)}
-                        className="h-4 w-4 text-pink-500 rounded border-gray-300 focus:ring-pink-500"
+                        className="h-4 w-4 text-pink-500 rounded border-gray-600 focus:ring-pink-500"
                       />
-                      <label htmlFor={category} className="ml-2 text-sm text-gray-700 cursor-pointer">
+                      <label htmlFor={category} className="ml-2 text-sm text-white cursor-pointer">
                         {category}
                       </label>
                     </div>
@@ -298,8 +325,8 @@ export default function ProductsPage() {
               </div>
 
               <div className="mb-6">
-                <h3 className="font-medium text-gray-900 mb-3">Price Range</h3>
-                <div className="flex justify-between text-sm text-gray-500 mb-2">
+                <h3 className="font-medium text-white mb-3">Price Range</h3>
+                <div className="flex justify-between text-sm text-gray-300 mb-2">
                   <span>$0</span>
                   <span>${priceRange}</span>
                 </div>
@@ -314,7 +341,7 @@ export default function ProductsPage() {
               </div>
 
               <div className="mb-6">
-                <h3 className="font-medium text-gray-900 mb-3">Skin Type</h3>
+                <h3 className="font-medium text-white mb-3">Skin Type</h3>
                 <div className="space-y-2">
                   {skinTypes.map((type) => (
                     <div key={type} className="flex items-center">
@@ -325,7 +352,7 @@ export default function ProductsPage() {
                         onChange={() => toggleSkinType(type)}
                         className="h-4 w-4 text-pink-500 rounded border-gray-300 focus:ring-pink-500"
                       />
-                      <label htmlFor={type} className="ml-2 text-sm text-gray-700 cursor-pointer">
+                      <label htmlFor={type} className="ml-2 text-sm text-white cursor-pointer">
                         {type}
                       </label>
                     </div>
@@ -334,7 +361,7 @@ export default function ProductsPage() {
               </div>
 
               <div className="mb-6">
-                <h3 className="font-medium text-gray-900 mb-3">Key Ingredients</h3>
+                <h3 className="font-medium text-white mb-3">Key Ingredients</h3>
                 <div className="space-y-2">
                   {ingredients.map((ingredient) => (
                     <div key={ingredient} className="flex items-center">
@@ -345,7 +372,7 @@ export default function ProductsPage() {
                         onChange={() => toggleIngredient(ingredient)}
                         className="h-4 w-4 text-pink-500 rounded border-gray-300 focus:ring-pink-500"
                       />
-                      <label htmlFor={ingredient} className="ml-2 text-sm text-gray-700 cursor-pointer">
+                      <label htmlFor={ingredient} className="ml-2 text-sm text-white cursor-pointer">
                         {ingredient}
                       </label>
                     </div>
@@ -356,12 +383,12 @@ export default function ProductsPage() {
               <div className="space-y-2">
                 <button 
                   onClick={resetFilters}
-                  className="w-full bg-white text-gray-700 border border-gray-300 py-2 px-4 rounded-md hover:bg-gray-50 transition-colors"
+                  className="w-full bg-white text-gray-900 border border-gray-300 py-2 px-4 rounded-md hover:bg-gray-100 transition-colors"
                 >
                   Reset Filters
                 </button>
                 <button 
-                  className="w-full bg-[#ff9494] text-gray-700 border border-gray-300 py-2 px-4 rounded-md flex items-center justify-center hover:bg-[#ff7a7a] transition-colors"
+                  className="w-full bg-[#ff9494] text-gray-900 border border-gray-300 py-2 px-4 rounded-md flex items-center justify-center hover:bg-[#ff7a7a] transition-colors"
                 >
                   <FaFilter className="mr-2" /> Apply Filters
                 </button>
