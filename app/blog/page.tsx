@@ -54,14 +54,14 @@ export default function BlogPage() {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-[#2b2b2b]">
         <Header />
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-purple-600 to-pink-500 text-white py-20">
+      <div className="py-16">
         <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Our Blog</h1>
-          <p className="text-xl md:text-2xl max-w-2xl mx-auto">
-            Discover insights, tutorials, and stories from our team of experts
+          <h1 className="text-5xl font-light text-white mb-4">Insights & Education</h1>
+          <p className="text-lg text-white max-w-2xl mx-auto">
+            Discover expert advice, skincare tips, and the latest in cosmetic science
           </p>
         </div>
       </div>
@@ -70,7 +70,7 @@ export default function BlogPage() {
       <div className="container mx-auto px-4 py-12">
         {/* Filter and Sort */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
-          <h2 className="text-2xl font-bold">Latest Articles</h2>
+          <h2 className="text-3xl text-white font-bold">Latest Articles</h2>
           
           <div className="flex flex-col md:flex-row gap-4 w-full md:w-auto">
             {/* Category Filter */}
@@ -83,10 +83,10 @@ export default function BlogPage() {
                       setSelectedCategory(category);
                       setCurrentPage(1);
                     }}
-                    className={`whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                    className={`whitespace-nowrap px-6 py-3 rounded-lg text-base font-medium transition-colors ${
                       selectedCategory === category
-                        ? 'bg-[#0285c7] text-white'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                        ? 'bg-[#D2B48C] text-gray-800'
+                        : 'bg-white text-gray-800 hover:bg-gray-100'
                     }`}
                   >
                     {category}
@@ -97,7 +97,7 @@ export default function BlogPage() {
 
             {/* Sort Dropdown */}
             <div className="flex items-center">
-              <span className="text-sm text-gray-600 mr-2">Sort by:</span>
+              <span className="text-md text-white mr-2">Sort by:</span>
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as SortOption)}
@@ -122,15 +122,15 @@ export default function BlogPage() {
         {/* No Results Message */}
         {filteredAndSortedPosts.length === 0 && (
           <div className="text-center py-12">
-            <h3 className="text-xl font-medium text-gray-700">No articles found</h3>
-            <p className="text-gray-500 mt-2">Try selecting a different category</p>
+            <h3 className="text-xl font-medium text-white">No articles found</h3>
+            <p className="text-white mt-2">Try selecting a different category</p>
           </div>
         )}
 
         {/* Pagination */}
         {filteredAndSortedPosts.length > 0 && (
           <div className="flex flex-col sm:flex-row justify-between items-center border-t border-gray-200 pt-6">
-            <div className="text-sm text-gray-500 mb-4 sm:mb-0">
+            <div className="text-sm text-white mb-4 sm:mb-0">
               Showing articles {((currentPage - 1) * ITEMS_PER_PAGE) + 1}–
               {Math.min(currentPage * ITEMS_PER_PAGE, filteredAndSortedPosts.length)} of{' '}
               {filteredAndSortedPosts.length}
@@ -140,7 +140,7 @@ export default function BlogPage() {
               <button
                 onClick={() => handlePageChange(currentPage - 1)}
                 disabled={currentPage === 1}
-                className="px-3 py-1 rounded-md border border-gray-300 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-3 py-1 rounded-md border border-gray-300 text-sm font-medium text-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 &larr; Previous
               </button>
@@ -183,7 +183,7 @@ export default function BlogPage() {
               <button
                 onClick={() => handlePageChange(currentPage + 1)}
                 disabled={currentPage === totalPages}
-                className="px-3 py-1 rounded-md border border-gray-300 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-3 py-1 rounded-md border border-gray-300 text-sm font-medium text-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Next &rarr;
               </button>

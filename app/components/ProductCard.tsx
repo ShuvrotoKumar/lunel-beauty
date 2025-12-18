@@ -1,72 +1,139 @@
-import Image from 'next/image';
-import { Eye, ShoppingCart } from 'lucide-react';
-import { Button } from './ui/button';
+'use client';
 
-type ProductCardProps = {
-  title: string;
-  description: string;
-  price: string;
-  rating: number;
-  reviewCount: number;
-  imageUrl: string;
+import Image from 'next/image';
+import Link from 'next/link';
+import { ShoppingCart, Eye, Star } from 'lucide-react';
+// Using a simple button since the UI button component already exists
+const Button = ({ 
+  children, 
+  className = '', 
+  ...props 
+}: React.ButtonHTMLAttributes<HTMLButtonElement> & { 
+  size?: 'sm' | 'md' | 'lg' 
+}) => {
+  return (
+    <button 
+      className={`inline-flex items-center justify-center px-4 py-2 rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ${className}`}
+      {...props}
+    >
+      {children}
+    </button>
+  );
 };
 
-export function ProductCard({
-  title,
-  description,
-  price,
-  rating = 4, // Default to 4 stars as shown in the image
-  reviewCount,
-  imageUrl,
-}: ProductCardProps) {
+export type Product = {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  originalPrice?: number;
+  rating: number;
+  reviewCount: number;
+  category: string[];
+  skinType: string[];
+  ingredients: string[];
+  image: string;
+  isNew?: boolean;
+  isBestSeller?: boolean;
+};
+
+type ProductCardProps = {
+  product: Product;
+};
+
+export function ProductCard({ product }: ProductCardProps) {
+  const renderRating = () => {
+    const stars = [];
+    const fullStars = Math.floor(product.rating);
+    const hasHalfStar = product.rating % 1 >= 0.5;
+    
+    for (let i = 0; i < 5; i++) {
+      if (i < fullStars) {
+        stars.push(
+          <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
+        );
+      } else if (i === fullStars && hasHalfStar) {
+        stars.push(
+          <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
+        );
+      } else {
+        stars.push(
+          <Star key={i} className="w-4 h-4 text-gray-600" />
+        );
+      }
+    }
+    
+    return (
+      <div className="flex items-center">
+        <div className="flex">{stars}</div>
+        <span className="text-sm text-gray-400 ml-1">({product.reviewCount})</span>
+      </div>
+    );
+  };
+
   return (
-    <div className="bg-[#1A1A1A] rounded-lg overflow-hidden w-full max-w-xs mx-auto">
-      {/* Product Image */}
-      <div className="relative h-64 bg-gray-800 flex items-center justify-center">
-        <Image
-          src={imageUrl}
-          alt={title}
-          width={200}
-          height={200}
-          className="object-contain h-3/4"
-        />
-      </div>
-
-      {/* Product Info */}
-      <div className="p-4">
-        <h3 className="text-white text-lg font-medium mb-1">{title}</h3>
-        <p className="text-gray-400 text-sm mb-2">{description}</p>
-        
-        {/* Rating */}
-        <div className="flex items-center mb-3">
-          <div className="flex text-yellow-400">
-            {[...Array(5)].map((_, i) => (
-              <svg
-                key={i}
-                className={`w-4 h-4 ${i < rating ? 'fill-current' : 'fill-none stroke-current stroke-1'}`}
-                viewBox="0 0 20 20"
-              >
-                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-              </svg>
-            ))}
+    <Link href={`/products/${product.id}`} className="block h-full">
+      <div className="bg-[#383838] rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 h-full flex flex-col w-full max-w-sm mx-auto border border-gray-700">
+        {/* Product Image */}
+        <div className="relative h-72 bg-gray-100 group">
+          <Image
+            src={product.image}
+            alt={product.name}
+            fill
+            className="object-cover group-hover:opacity-90 transition-opacity duration-300"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          />
+          {product.isNew && (
+            <div className="absolute top-2 left-2 bg-indigo-600 text-white text-xs font-bold px-2 py-1 rounded">
+              NEW
+            </div>
+          )}
+          {product.isBestSeller && (
+            <div className="absolute top-3 right-3 bg-yellow-500 text-white text-[10px] font-medium px-2 py-1 rounded-full uppercase tracking-wider">
+              Best Seller
+            </div>
+          )}
+          <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+            <button className="bg-white text-gray-900 p-2 rounded-full hover:bg-gray-200 transition-colors">
+              <Eye className="w-5 h-5" />
+            </button>
           </div>
-          <span className="text-gray-400 text-xs ml-1">({reviewCount})</span>
         </div>
 
-        {/* Price */}
-        <p className="text-white text-xl font-bold mb-4">{price}</p>
-
-        {/* Buttons */}
-        <div className="flex gap-2">
-          <Button className="bg-[#F8B319] hover:bg-[#e6a30e] text-black flex-1">
-            <ShoppingCart className="w-4 h-4 mr-2" />
-            Add to Cart
-          </Button>
-          <Button variant="outline" size="icon" className="border-gray-600 hover:bg-gray-800">
-            <Eye className="w-4 h-4" />
-          </Button>
+        {/* Product Info */}
+        <div className="p-5 flex-1 flex flex-col">
+          <div className="text-xs text-gray-300 mb-2">{product.category[0] || 'Skincare'}</div>
+          <h3 className="font-medium text-gray-100 text-lg mb-1 line-clamp-2">{product.name}</h3>
+          <p className="text-gray-100 text-sm mb-3 line-clamp-2">{product.description}</p>
+          
+          <div className="flex items-center mb-3">
+            <div className="flex">
+              {[1, 2, 3, 4, 5].map((star) => (
+                <Star 
+                  key={star} 
+                  className={`w-4 h-4 ${star <= 5 ? 'text-yellow-400 fill-current' : 'text-gray-300'}`} 
+                />
+              ))}
+            </div>
+            <span className="text-xs text-gray-100 ml-1">({product.reviewCount})</span>
+          </div>
+          
+          <div className="mt-auto flex items-center justify-between">
+            <div className="flex items-baseline">
+              <span className="text-lg font-bold text-gray-100">${product.price.toFixed(2)}</span>
+              {product.originalPrice && (
+                <span className="ml-2 text-sm text-gray-400 line-through">
+                  ${product.originalPrice.toFixed(2)}
+                </span>
+              )}
+            </div>
+            <button className="bg-[#d4a674] text-white text-sm px-4 py-2 rounded-full hover:bg-gray-800 transition-colors flex items-center">
+              <ShoppingCart className="w-4 h-4 mr-1" />
+              Add to Cart
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }

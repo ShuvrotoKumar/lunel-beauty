@@ -2,7 +2,7 @@ export type BlogPost = {
   id: string;
   title: string;
   excerpt: string;
-  category: 'Technology' | 'Design' | 'Business' | 'Marketing' | 'Development';
+  category: 'Technology' | 'Design' | 'Business' | 'Marketing' | 'Development' | 'Beauty';
   date: string;
   author: string;
   image: string;
@@ -18,4 +18,5 @@ export const categories = [
   'Business',
   'Marketing',
   'Development',
+  'Beauty',
 ] as const;

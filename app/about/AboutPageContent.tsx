@@ -2,12 +2,10 @@
 
 import { FaLeaf, FaHeart, FaFlask, FaRecycle, FaSearch, FaUsers, FaVial } from 'react-icons/fa';
 import Image from 'next/image';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+
 const AboutPageContent = () => {
     return (
         <div className="bg-white">
-            <Header />
             
             {/* Hero Section */}
             <section className="relative h-[70vh] w-full">
@@ -166,7 +164,7 @@ const AboutPageContent = () => {
                 </div>
             </section>
             
-            <Footer />
+                                      
         </div>
     );
 };

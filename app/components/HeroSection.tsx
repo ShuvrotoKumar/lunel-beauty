@@ -28,10 +28,10 @@ const HeroSection = () => {
             Discover the pure essence of beauty with our organic skincare collection, crafted with love and nature's finest ingredients.
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-            <Button className="bg-[#d4a574] !text-black hover:bg-gray-100 px-8 py-4 text-xl font-medium rounded-none">
+            <Button className="bg-[#d4a674] rounded-lg !text-black hover:bg-gray-100 px-8 py-4 text-xl font-medium rounded-none">
               Explore Products
             </Button>
-            <Button variant="outline" className="border-white text-white hover:bg-white hover:text-black px-10 py-4 text-xl font-medium rounded-none">
+            <Button variant="outline" className="border-white text-white hover:bg-white hover:text-black px-10 py-4 text-xl font-medium rounded-lg">
               Shop Now
             </Button>
           </div>

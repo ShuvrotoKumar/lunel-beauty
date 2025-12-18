@@ -15,8 +15,33 @@ const Header = () => {
   const [isAccountModalOpen, setIsAccountModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [isMobile, setIsMobile] = useState(false);
+  const [wishlistCount, setWishlistCount] = useState(0);
   const cartItemCount = 0; // This would typically come from a cart context or state management
   const router = useRouter();
+
+  // Sync wishlist count with localStorage
+  useEffect(() => {
+    const updateWishlistCount = () => {
+      if (typeof window !== 'undefined') {
+        const savedWishlist = localStorage.getItem('wishlist');
+        const count = savedWishlist ? JSON.parse(savedWishlist).length : 0;
+        setWishlistCount(count);
+      }
+    };
+
+    // Initial update
+    updateWishlistCount();
+
+    // Listen for wishlist updates
+    const handleWishlistUpdate = () => updateWishlistCount();
+    window.addEventListener('storage', handleWishlistUpdate);
+    window.addEventListener('wishlistUpdated', handleWishlistUpdate as EventListener);
+
+    return () => {
+      window.removeEventListener('storage', handleWishlistUpdate);
+      window.removeEventListener('wishlistUpdated', handleWishlistUpdate as EventListener);
+    };
+  }, []);
 
   // Check if the screen is mobile size on mount and window resize
   useEffect(() => {
@@ -58,11 +83,11 @@ const Header = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-[#1a1a1a] backdrop-blur-md shadow-sm min-h-12 transition-all duration-300">
+    <header className="sticky top-0 z-50 bg-[#000000] backdrop-blur-md shadow-sm min-h-12 transition-all duration-300">
       <div className="container mx-auto px-4 py-3">
-        <div className="flex flex-col items-center py-4 bg-[#1a1a1a] text-gray-200">
+        <div className="flex flex-col items-center py-4 bg-[#000000] text-gray-200">
           {/* Logo with leaf icon */}
-          <div className="flex flex-col items-center pt-2 pb-4 bg-[#1a1a1a] text-gray-200">
+          <div className="flex flex-col items-center pt-2 pb-4 bg-[#000000] text-gray-200">
             {/* Logo with leaf icon */}
             <Link href="/" className="flex items-center -mt-2" onClick={handleNavigation}>
               <div className="relative w-40 h-14 md:w-48 md:h-16 transition-all duration-300 hover:scale-105">
@@ -93,13 +118,59 @@ const Header = () => {
 
             <div className="flex items-center space-x-6">
               {/* Search */}
-              <button
-                onClick={() => setIsSearchOpen(!isSearchOpen)}
-                className="text-gray-300 hover:text-white transition-colors"
-                aria-label={isSearchOpen ? 'Close search' : 'Open search'}
-              >
-                <FiSearch className="h-5 w-5" />
-              </button>
+              <div className="relative">
+                <button
+                  onClick={() => setIsSearchOpen(!isSearchOpen)}
+                  className="text-gray-300 hover:text-white transition-colors"
+                  aria-label={isSearchOpen ? 'Close search' : 'Open search'}
+                >
+                  <FiSearch className="h-5 w-5" />
+                </button>
+                
+                {/* Search Form */}
+                {isSearchOpen && (
+                  <div className="absolute right-0 mt-2 w-80 bg-[#171717] p-4 rounded-lg shadow-xl z-50 border border-gray-700">
+                    <form 
+                      onSubmit={(e) => {
+                        e.preventDefault();
+                        if (searchQuery.trim()) {
+                          router.push(`/search?q=${encodeURIComponent(searchQuery)}`);
+                          setIsSearchOpen(false);
+                          setSearchQuery('');
+                        }
+                      }}
+                      className="relative"
+                    >
+                      <input
+                        type="text"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        placeholder="Search products, articles..."
+                        className="w-full bg-gray-800 text-white placeholder-gray-400 rounded-md py-2 pl-4 pr-10 focus:outline-none focus:ring-2 focus:ring-[#d4a674]"
+                        autoFocus
+                      />
+                      <button 
+                        type="submit"
+                        className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white"
+                        aria-label="Search"
+                      >
+                        <FiSearch className="h-5 w-5" />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setIsSearchOpen(false);
+                          setSearchQuery('');
+                        }}
+                        className="absolute right-8 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white"
+                        aria-label="Close search"
+                      >
+                        <FiX className="h-5 w-5" />
+                      </button>
+                    </form>
+                  </div>
+                )}
+              </div>
 
               {/* Wishlist */}
               <Link

@@ -1,10 +1,9 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { FaStar, FaStarHalfAlt, FaRegStar, FaShoppingCart, FaTh, FaThList } from 'react-icons/fa';
 import Image from 'next/image';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+
 
 // Sample product data
 const products = [
@@ -14,7 +13,8 @@ const products = [
     price: 68.00,
     rating: 5,
     reviews: 12,
-    image: '/images/pr1.png',
+    image: '/images/f1.png',
+    category: 'Skincare',
     isNew: true,
     isOnSale: false
   },
@@ -24,7 +24,8 @@ const products = [
     price: 24.99,
     rating: 4.5,
     reviews: 24,
-    image: '/images/pr2.png',
+    image: '/images/f2.png',
+    category: 'Makeup',
     isNew: false,
     isOnSale: true
   },
@@ -34,7 +35,8 @@ const products = [
     price: 42.50,
     rating: 4.8,
     reviews: 36,
-    image: '/images/pr3.png',
+    image: '/images/f3.png',
+    category: 'Skincare',
     isNew: true,
     isOnSale: false
   },
@@ -44,7 +46,8 @@ const products = [
     price: 38.00,
     rating: 4.7,
     reviews: 18,
-    image: '/images/p4.png',
+    image: '/images/f4.png',
+    category: 'Makeup',
     isNew: false,
     isOnSale: true
   },
@@ -54,7 +57,8 @@ const products = [
     price: 29.99,
     rating: 4.6,
     reviews: 42,
-    image: '/images/p5.png',
+    image: '/images/f5.png',
+    category: 'Haircare',
     isNew: false,
     isOnSale: false
   },
@@ -64,7 +68,8 @@ const products = [
     price: 78.00,
     rating: 4.9,
     reviews: 56,
-    image: '/images/p6.png',
+    image: '/images/f6.png',
+    category: 'Wellness',
     isNew: true,
     isOnSale: false
   },
@@ -74,7 +79,8 @@ const products = [
     price: 54.99,
     rating: 4.7,
     reviews: 31,
-    image: '/images/p7.png',
+    image: '/images/f7.png',
+    category: 'Skincare',
     isNew: false,
     isOnSale: true
   },
@@ -84,7 +90,8 @@ const products = [
     price: 45.00,
     rating: 4.9,
     reviews: 47,
-    image: '/images/p8.png',
+    image: '/images/f1.png',
+    category: 'Skincare',
     isNew: true,
     isOnSale: false
   },
@@ -94,7 +101,8 @@ const products = [
     price: 22.50,
     rating: 4.5,
     reviews: 29,
-    image: '/images/p7.png',
+    image: '/images/f2.png',
+    category: 'Skincare',
     isNew: false,
     isOnSale: false
   },
@@ -104,7 +112,8 @@ const products = [
     price: 35.00,
     rating: 4.8,
     reviews: 63,
-    image: '/images/p5.png',
+    image: '/images/f3.png',
+    category: 'Skincare',
     isNew: true,
     isOnSale: false
   },
@@ -114,7 +123,8 @@ const products = [
     price: 39.99,
     rating: 4.6,
     reviews: 51,
-    image: '/images/pr2.png',
+    image: '/images/f4.png',
+    category: 'Makeup',
     isNew: false,
     isOnSale: true
   },
@@ -124,7 +134,8 @@ const products = [
     price: 28.50,
     rating: 4.7,
     reviews: 37,
-    image: '/images/p4.png',
+    image: '/images/f6.png',
+    category: 'Wellness',
     isNew: false,
     isOnSale: false
   },
@@ -138,11 +149,11 @@ const ProductCard = ({ product, viewMode = 'grid' }: { product: typeof products[
 
     for (let i = 1; i <= 5; i++) {
       if (i <= fullStars) {
-        stars.push(<FaStar key={i} className="text-yellow-400" />);
+        stars.push(<FaStar key={i} className="text-[#D4A574]" />);
       } else if (i === fullStars + 1 && hasHalfStar) {
-        stars.push(<FaStarHalfAlt key={i} className="text-yellow-400" />);
+        stars.push(<FaStarHalfAlt key={i} className="text-[#D4A574]" />);
       } else {
-        stars.push(<FaRegStar key={i} className="text-yellow-400" />);
+        stars.push(<FaRegStar key={i} className="text-[#D4A574]" />);
       }
     }
 
@@ -151,7 +162,7 @@ const ProductCard = ({ product, viewMode = 'grid' }: { product: typeof products[
 
   if (viewMode === 'list') {
     return (
-      <div className="bg-white rounded-lg overflow-hidden flex flex-col md:flex-row shadow-sm transition-transform duration-300 hover:scale-[1.02]">
+      <div className="bg-[#2b2b2b] rounded-lg overflow-hidden flex flex-col md:flex-row shadow-sm transition-transform duration-300 hover:scale-[1.02]">
         <div className="relative w-full md:w-48 h-48 flex-shrink-0">
           <Image 
             src={product.image} 
@@ -167,20 +178,20 @@ const ProductCard = ({ product, viewMode = 'grid' }: { product: typeof products[
             <span className="absolute top-2 right-2 bg-red-500 text-white text-xs px-2 py-1 rounded">Sale</span>
           )}
         </div>
-        <div className="p-4 flex-1">
-          <h3 className="font-medium text-lg text-gray-900 mb-1">{product.name}</h3>
+        <div className="p-4 flex-1 flex flex-col">
+          <h3 className="font-medium text-lg text-white mb-1">{product.name}</h3>
           <div className="flex items-center mb-2">
             <div className="flex mr-2">
               {renderStars()}
             </div>
-            <span className="text-sm text-gray-500">({product.reviews})</span>
+            <span className="text-sm text-gray-400">({product.reviews})</span>
           </div>
-          <p className="text-[#ff9494] font-bold text-lg mb-3">${product.price.toFixed(2)}</p>
-          <p className="text-gray-600 mb-4 line-clamp-2">
+          <p className="font-bold text-lg mb-3 text-white">${product.price.toFixed(2)}</p>
+          <p className="text-gray-300 mb-4 line-clamp-2">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
           </p>
-          <button className="bg-[#ff9494] text-white/80 px-4 py-2 rounded-full text-sm font-medium transition-colors flex items-center">
-            <FaShoppingCart className="mr-2" /> Add to Cart
+          <button className="bg-[#D4A574] text-white/80 px-3 py-1.5 rounded-full text-xs font-medium transition-colors flex items-center self-start">
+            <FaShoppingCart className="mr-1.5" size={12} /> Add to Cart
           </button>
         </div>
       </div>
@@ -188,7 +199,7 @@ const ProductCard = ({ product, viewMode = 'grid' }: { product: typeof products[
   }
 
   return (
-    <div className="bg-white rounded-lg overflow-hidden shadow-sm transition-transform duration-300 hover:scale-105">
+    <div className="bg-[#2b2b2b] rounded-lg overflow-hidden shadow-sm transition-transform duration-300 hover:scale-105">
       <div className="relative h-48">
         <Image 
           src={product.image} 
@@ -205,16 +216,16 @@ const ProductCard = ({ product, viewMode = 'grid' }: { product: typeof products[
         )}
       </div>
       <div className="p-4">
-        <h3 className="font-medium text-gray-800 mb-1">{product.name}</h3>
+        <h3 className="font-medium text-white mb-1">{product.name}</h3>
         <div className="flex items-center mb-2">
           <div className="flex mr-1">
             {renderStars()}
           </div>
-          <span className="text-xs text-gray-500">({product.reviews})</span>
+          <span className="text-xs text-gray-400">({product.reviews})</span>
         </div>
-        <div className="flex justify-between items-center">
-          <span className="font-bold text-[#ff9494]">${product.price.toFixed(2)}</span>
-          <button className="bg-[#ff9494] text-white/80 px-3 py-1 rounded-full text-sm font-medium transition-colors flex items-center">
+        <div className="flex justify-between items-center mt-auto">
+          <span className="font-bold text-white">${product.price.toFixed(2)}</span>
+          <button className="bg-[#D4A574] text-white px-3 py-1 rounded-full text-sm font-medium transition-colors flex items-center">
             <FaShoppingCart className="mr-1" /> Add
           </button>
         </div>
@@ -227,48 +238,78 @@ export default function ShopPage() {
   const [sortBy, setSortBy] = useState('popularity');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedCategory, setSelectedCategory] = useState('All Products');
+  
+  const categories = ['All Products', 'Skincare', 'Makeup', 'Wellness', 'Haircare'];
   const productsPerPage = 12;
 
-  // Sort products based on the selected option
-  const sortedProducts = useMemo(() => {
-    const productsCopy = [...products];
+  // Filter and sort products based on selected options
+  const filteredAndSortedProducts = useMemo(() => {
+    // First filter by category if not 'All Products'
+    let filtered = [...products];
+    if (selectedCategory !== 'All Products') {
+      filtered = filtered.filter(product => product.category === selectedCategory);
+    }
     
+    // Then sort by the selected option
     switch (sortBy) {
       case 'price-low':
-        return productsCopy.sort((a, b) => a.price - b.price);
+        return filtered.sort((a, b) => a.price - b.price);
       case 'price-high':
-        return productsCopy.sort((a, b) => b.price - a.price);
+        return filtered.sort((a, b) => b.price - a.price);
       case 'newest':
-        return productsCopy.sort((a, b) => b.id - a.id);
+        return filtered.sort((a, b) => b.id - a.id);
       case 'rating':
-        return productsCopy.sort((a, b) => b.rating - a.rating);
+        return filtered.sort((a, b) => b.rating - a.rating);
       case 'popularity':
       default:
-        return productsCopy.sort((a, b) => b.reviews - a.reviews);
+        return filtered.sort((a, b) => b.reviews - a.reviews);
     }
-  }, [sortBy]);
+  }, [sortBy, selectedCategory]);
 
   // Get current products for pagination
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = sortedProducts.slice(indexOfFirstProduct, indexOfLastProduct);
-  const totalPages = Math.ceil(sortedProducts.length / productsPerPage);
+  const currentProducts = filteredAndSortedProducts.slice(indexOfFirstProduct, indexOfLastProduct);
+  const totalPages = Math.ceil(filteredAndSortedProducts.length / productsPerPage);
+
+  // Reset to first page when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedCategory, sortBy]);
 
   // Change page
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
+    <div className="min-h-screen flex flex-col bg-[#171717]">
+  
       <main className="flex-grow">
-        <div className="container mx-auto px-4 py-8">
+        <div className="container mx-auto px-4 py-8 bg-[#171717]">
           {/* Page Header */}
           <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900 mb-2">All Products</h1>
-              <p className="text-sm text-gray-500">
-                Showing {indexOfFirstProduct + 1}-{Math.min(indexOfLastProduct, sortedProducts.length)} of {sortedProducts.length} results
+              <h1 className="text-2xl font-bold text-white mb-2">All Products</h1>
+              <p className="text-sm text-gray-400">
+                Showing {filteredAndSortedProducts.length > 0 ? indexOfFirstProduct + 1 : 0}-{Math.min(indexOfLastProduct, filteredAndSortedProducts.length)} of {filteredAndSortedProducts.length} results
               </p>
+              
+              {/* Category Filters */}
+              <div className="flex flex-wrap gap-2 mt-4">
+                {categories.map((category) => (
+                  <button
+                    key={category}
+                    onClick={() => setSelectedCategory(category)}
+                    className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                      selectedCategory === category
+                        ? 'bg-[#D4A574] text-black'
+                        : 'bg-white text-black hover:bg-gray-100'
+                    }`}
+                  >
+                    {category}
+                  </button>
+                ))}
+              </div>
             </div>
             
             <div className="flex items-center space-x-4 mt-4 md:mt-0">
@@ -308,7 +349,7 @@ export default function ShopPage() {
 
           {/* Products Grid */}
           {viewMode === 'grid' ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {currentProducts.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
@@ -320,6 +361,21 @@ export default function ShopPage() {
               ))}
             </div>
           )}
+
+          {/* View More Button */}
+          <div className="mt-10 text-center">
+            <button 
+              className="bg-[#2b2b2b] text-white px-8 py-3 rounded-full text-sm font-medium border-2 border-white/20 hover:border-[#D4A574] hover:bg-[#D4A574] hover:text-black transition-all duration-300"
+              onClick={() => {
+                // Load more products or handle the click
+                if (currentPage < totalPages) {
+                  setCurrentPage(prev => prev + 1);
+                }
+              }}
+            >
+              View More
+            </button>
+          </div>
 
           {/* Pagination */}
           {totalPages > 1 && (
@@ -369,7 +425,7 @@ export default function ShopPage() {
           )}
         </div>
       </main>
-      <Footer />
+      
     </div>
   );
 }
