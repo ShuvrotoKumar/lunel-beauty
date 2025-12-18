@@ -50,7 +50,7 @@ export default function ContactPage() {
                                             value={formData.firstName}
                                             onChange={handleChange}
                                             placeholder="First Name"
-                                            className="w-full px-4 py-3 text-gray-100 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-gray-400"
+                                            className="w-full px-4 py-3 text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-gray-400"
                                             required
                                         />
                                     </div>
@@ -61,7 +61,7 @@ export default function ContactPage() {
                                             value={formData.lastName}
                                             onChange={handleChange}
                                             placeholder="Last Name"
-                                            className="w-full px-4 py-3 text-gray-100 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-gray-400"
+                                            className="w-full px-4 py-3 text-gray-900 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-gray-400"
                                             required
                                         />
                                     </div>
@@ -73,7 +73,7 @@ export default function ContactPage() {
                                         value={formData.email}
                                         onChange={handleChange}
                                         placeholder="Email"
-                                        className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-gray-400"
+                                        className="w-full px-4 py-3 border text-gray-900 border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-gray-400"
                                         required
                                     />
                                 </div>
@@ -82,7 +82,7 @@ export default function ContactPage() {
                                         name="subject"
                                         value={formData.subject}
                                         onChange={handleChange}
-                                        className="w-full px-4 py-3 border border-gray-300 rounded bg-white focus:outline-none focus:ring-1 focus:ring-gray-400"
+                                        className="w-full px-4 py-3 border text-gray-900 border-gray-300 rounded bg-white focus:outline-none focus:ring-1 focus:ring-gray-400"
                                         required
                                     >
                                         <option value="" disabled hidden>Select Subject</option>
@@ -133,8 +133,8 @@ export default function ContactPage() {
                                 <h2 className="text-2xl font-semibold text-gray-100 mb-6">Contact Information</h2>
                                 <div className="space-y-4">
                                     <div className="flex items-start">
-                                        <div className="flex-shrink-0 bg-blue-100 p-3 rounded-full">
-                                            <FaMapMarkerAlt className="h-5 w-5 text-blue-600" />
+                                        <div className="flex-shrink-0 bg-[#d4a674] p-3 rounded-full">
+                                            <FaMapMarkerAlt className="h-5 w-5 text-gray-100" />
                                         </div>
                                         <div className="ml-4">
                                             <h3 className="text-lg font-medium text-gray-100">Our Location</h3>
@@ -143,8 +143,8 @@ export default function ContactPage() {
                                     </div>
 
                                     <div className="flex items-start">
-                                        <div className="flex-shrink-0 bg-blue-100 p-3 rounded-full">
-                                            <FaPhoneAlt className="h-5 w-5 text-blue-600" />
+                                        <div className="flex-shrink-0 bg-[#d4a674] p-3 rounded-full">
+                                            <FaPhoneAlt className="h-5 w-5 text-gray-100" />
                                         </div>
                                         <div className="ml-4">
                                             <h3 className="text-lg font-medium text-gray-100">Phone Number</h3>
@@ -153,8 +153,8 @@ export default function ContactPage() {
                                     </div>
 
                                     <div className="flex items-start">
-                                        <div className="flex-shrink-0 bg-blue-100 p-3 rounded-full">
-                                            <FaEnvelope className="h-5 w-5 text-blue-600" />
+                                        <div className="flex-shrink-0 bg-[#d4a674] p-3 rounded-full">
+                                            <FaEnvelope className="h-5 w-5 text-gray-100" />
                                         </div>
                                         <div className="ml-4">
                                             <h3 className="text-lg font-medium text-gray-100">Email Address</h3>

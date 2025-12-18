@@ -1,11 +1,11 @@
 // app/components/Header.tsx
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { FiSearch, FiUser, FiShoppingCart, FiX, FiMenu, FiShoppingBag, FiHeart } from 'react-icons/fi';
+import { FiSearch, FiUser, FiShoppingCart, FiX, FiMenu, FiShoppingBag, FiHeart, FiLogIn, FiLogOut, FiUserPlus, FiSettings } from 'react-icons/fi';
 import { FaLeaf } from 'react-icons/fa';
 import dynamic from 'next/dynamic';
 
@@ -16,8 +16,45 @@ const Header = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isMobile, setIsMobile] = useState(false);
   const [wishlistCount, setWishlistCount] = useState(0);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
   const cartItemCount = 0; // This would typically come from a cart context or state management
   const router = useRouter();
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  // Toggle authentication state (for demo purposes)
+  const handleLogin = () => {
+    setIsAuthenticated(true);
+    setIsDropdownOpen(false);
+    // In a real app, you would handle the login logic here
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    setIsAdmin(false);
+    setIsDropdownOpen(false);
+    // In a real app, you would handle the logout logic here
+  };
+
+  // Toggle admin state (for demo purposes)
+  const toggleAdmin = () => {
+    setIsAdmin(!isAdmin);
+  };
 
   // Sync wishlist count with localStorage
   useEffect(() => {
@@ -197,15 +234,96 @@ const Header = () => {
                 )}
               </Link>
 
-              {/* Account */}
-              <Link
-                href="/account"
-                className="text-gray-300 hover:text-white transition-colors"
-                aria-label="User account"
-                onClick={handleNavigation}
-              >
-                <FiUser className="h-5 w-5" />
-              </Link>
+              {/* Account Dropdown */}
+              <div className="relative" ref={dropdownRef}>
+                <button
+                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                  className="text-gray-300 hover:text-white transition-colors flex items-center"
+                  aria-label="User account"
+                  aria-expanded={isDropdownOpen}
+                >
+                  <FiUser className="h-5 w-5" />
+                </button>
+
+                {isDropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-48 bg-[#171717] rounded-md shadow-lg py-1 z-50">
+                    {!isAuthenticated ? (
+                      <>
+                        <Link
+                          href="/login"
+                          className="flex items-center px-4 py-2 text-sm text-gray-100 "
+                          onClick={() => {
+                            handleNavigation();
+                            setIsDropdownOpen(false);
+                          }}
+                        >
+                          <FiLogIn className="mr-2 h-4 w-4" />
+                          Login
+                        </Link>
+                        <Link
+                          href="/register"
+                          className="flex items-center px-4 py-2 text-sm text-gray-100 "
+                          onClick={() => {
+                            handleNavigation();
+                            setIsDropdownOpen(false);
+                          }}
+                        >
+                          <FiUserPlus className="mr-2 h-4 w-4" />
+                          Sign Up
+                        </Link>
+                        {/* Demo admin toggle - remove in production */}
+                        <button
+                          onClick={() => {
+                            toggleAdmin();
+                            handleLogin();
+                          }}
+                          className="w-full text-left px-4 py-2 text-sm text-gray-100  flex items-center"
+                        >
+                          <FiUser className="mr-2 h-4 w-4" />
+                          Login as {isAdmin ? 'User' : 'Admin'}
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <Link
+                          href="/account"
+                          className="flex items-center px-4 py-2 text-sm text-gray-100 "
+                          onClick={() => {
+                            handleNavigation();
+                            setIsDropdownOpen(false);
+                          }}
+                        >
+                          <FiUser className="mr-2 h-4 w-4" />
+                          My Profile
+                        </Link>
+                        {isAdmin && (
+                          <Link
+                            href="/admin/dashboard"
+                            className="flex items-center px-4 py-2 text-sm text-gray-100 "
+                            onClick={() => {
+                              handleNavigation();
+                              setIsDropdownOpen(false);
+                            }}
+                          >
+                            <FiSettings className="mr-2 h-4 w-4" />
+                            Dashboard
+                          </Link>
+                        )}
+                        <button
+                          onClick={() => {
+                            handleLogout();
+                            handleNavigation();
+                          }}
+                          className="w-full text-left px-4 py-2 text-sm text-gray-100 flex items-center"
+                        >
+                          <FiLogOut className="mr-2 h-4 w-4" />
+                          Logout
+                        </button>
+                      </>
+                    )}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
