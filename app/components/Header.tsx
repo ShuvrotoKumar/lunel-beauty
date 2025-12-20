@@ -185,187 +185,171 @@ const Header = () => {
           </div>
 
           {/* Desktop Navigation */}
-          <div className="w-full flex justify-between items-center px-4">
-            <nav className="flex-1 flex justify-center space-x-6 lg:space-x-8">
-              <Link href="/" className="text-gray-300 hover:text-white transition-colors" onClick={handleNavigation}>Home</Link>
-              <Link href="/about" className="text-gray-300 hover:text-white transition-colors" onClick={handleNavigation}>About Us</Link>
-              <Link href="/products" className="text-gray-300 hover:text-white transition-colors" onClick={handleNavigation}>Products</Link>
-              <Link href="/shop" className="text-gray-300 hover:text-white transition-colors" onClick={handleNavigation}>Shop</Link>
-              <Link href="/blog" className="text-gray-300 hover:text-white transition-colors" onClick={handleNavigation}>Blog</Link>
-              <Link href="/contact" className="text-gray-300 hover:text-white transition-colors" onClick={handleNavigation}>Contact</Link>
-              <Link href="/faq" className="text-gray-300 hover:text-white transition-colors" onClick={handleNavigation}>FAQ</Link>
-            </nav>
-
-            <div className="flex items-center space-x-6">
-              {/* Search */}
-              <div className="relative">
-                <button
-                  onClick={() => setIsSearchOpen(!isSearchOpen)}
-                  className="text-gray-300 hover:text-white transition-colors"
-                  aria-label={isSearchOpen ? 'Close search' : 'Open search'}
-                >
-                  <FiSearch className="h-5 w-5" />
-                </button>
-                
-                {/* Search Form */}
-                {isSearchOpen && (
-                  <div className="absolute right-0 mt-2 w-80 bg-[#171717] p-4 rounded-lg shadow-xl z-50 border border-gray-700">
-                    <form 
-                      onSubmit={(e) => {
-                        e.preventDefault();
-                        if (searchQuery.trim()) {
-                          router.push(`/search?q=${encodeURIComponent(searchQuery)}`);
-                          setIsSearchOpen(false);
-                          setSearchQuery('');
-                        }
-                      }}
-                      className="relative"
-                    >
-                      <input
-                        type="text"
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        placeholder="Search products, articles..."
-                        className="w-full bg-gray-800 text-white placeholder-gray-400 rounded-md py-2 pl-4 pr-10 focus:outline-none focus:ring-2 focus:ring-[#d4a674]"
-                        autoFocus
-                      />
-                      <button 
-                        type="submit"
-                        className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white"
-                        aria-label="Search"
-                      >
-                        <FiSearch className="h-5 w-5" />
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setIsSearchOpen(false);
-                          setSearchQuery('');
+          <div className="w-full flex flex-col items-center px-4">
+            <div className="flex justify-center items-center w-full max-w-4xl">
+              <nav className="flex items-center space-x-6 lg:space-x-8">
+                <Link href="/" className="text-gray-300 hover:text-white transition-colors" onClick={handleNavigation}>Home</Link>
+                <Link href="/about" className="text-gray-300 hover:text-white transition-colors" onClick={handleNavigation}>About Us</Link>
+                <Link href="/products" className="text-gray-300 hover:text-white transition-colors" onClick={handleNavigation}>Products</Link>
+                <Link href="/shop" className="text-gray-300 hover:text-white transition-colors" onClick={handleNavigation}>Shop</Link>
+                <Link href="/blog" className="text-gray-300 hover:text-white transition-colors" onClick={handleNavigation}>Blog</Link>
+                <Link href="/contact" className="text-gray-300 hover:text-white transition-colors" onClick={handleNavigation}>Contact</Link>
+                <Link href="/faq" className="text-gray-300 hover:text-white transition-colors" onClick={handleNavigation}>FAQ</Link>
+              </nav>
+              <div className="flex items-center space-x-4 ml-8">
+                {/* Search */}
+                <div className="relative">
+                  <button
+                    onClick={() => setIsSearchOpen(!isSearchOpen)}
+                    className="text-gray-300 hover:text-white transition-colors"
+                    aria-label={isSearchOpen ? 'Close search' : 'Open search'}
+                  >
+                    <FiSearch className="h-5 w-5" />
+                  </button>
+                  {isSearchOpen && (
+                    <div className="absolute right-0 mt-2 w-80 bg-[#171717] p-4 rounded-lg shadow-xl z-50 border border-gray-700">
+                      <form 
+                        onSubmit={(e) => {
+                          e.preventDefault();
+                          if (searchQuery.trim()) {
+                            router.push(`/search?q=${encodeURIComponent(searchQuery)}`);
+                            setIsSearchOpen(false);
+                            setSearchQuery('');
+                          }
                         }}
-                        className="absolute right-8 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white"
-                        aria-label="Close search"
+                        className="relative"
                       >
-                        <FiX className="h-5 w-5" />
-                      </button>
-                    </form>
-                  </div>
-                )}
-              </div>
+                        <input
+                          type="text"
+                          value={searchQuery}
+                          onChange={(e) => setSearchQuery(e.target.value)}
+                          className="w-full bg-gray-800 text-white px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          placeholder="Search products..."
+                          autoFocus
+                        />
+                      </form>
+                    </div>
+                  )}
+                </div>
 
-              {/* Wishlist */}
-              <Link
-                href="/wishlist"
-                className="text-gray-300 hover:text-white transition-colors"
-                aria-label="Wishlist"
-                onClick={handleNavigation}
-              >
-                <FiHeart className="h-5 w-5" />
-              </Link>
-
-              {/* Cart */}
-              <Link
-                href="/cart"
-                className="text-gray-300 hover:text-white relative transition-colors"
-                aria-label="Shopping cart"
-                onClick={handleNavigation}
-              >
-                <FiShoppingBag className="h-5 w-5" />
-                {cartItemCount > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-gray-300 text-gray-800 text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                    {cartItemCount > 9 ? '9+' : cartItemCount}
-                  </span>
-                )}
-              </Link>
-
-              {/* Account Dropdown */}
-              <div className="relative" ref={dropdownRef}>
-                <button
-                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                  className="text-gray-300 hover:text-white transition-colors flex items-center"
-                  aria-label="User account"
-                  aria-expanded={isDropdownOpen}
+                {/* Wishlist */}
+                <Link 
+                  href="/wishlist" 
+                  className="relative text-gray-300 hover:text-white transition-colors"
+                  onClick={handleNavigation}
                 >
-                  <FiUser className="h-5 w-5" />
-                </button>
+                  <FiHeart className="h-5 w-5" />
+                  {wishlistCount > 0 && (
+                    <span className="absolute -top-2 -right-2 bg-gray-300 text-gray-800 text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                      {wishlistCount > 9 ? '9+' : wishlistCount}
+                    </span>
+                  )}
+                </Link>
 
-                {isDropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-48 bg-[#171717] rounded-md shadow-lg py-1 z-50">
-                    {!isAuthenticated ? (
-                      <>
-                        <Link
-                          href="/login"
-                          className="flex items-center px-4 py-2 text-sm text-gray-100 "
-                          onClick={() => {
-                            handleNavigation();
-                            setIsDropdownOpen(false);
-                          }}
-                        >
-                          <FiLogIn className="mr-2 h-4 w-4" />
-                          Login
-                        </Link>
-                        <Link
-                          href="/register"
-                          className="flex items-center px-4 py-2 text-sm text-gray-100 "
-                          onClick={() => {
-                            handleNavigation();
-                            setIsDropdownOpen(false);
-                          }}
-                        >
-                          <FiUserPlus className="mr-2 h-4 w-4" />
-                          Sign Up
-                        </Link>
-                        {/* Demo admin toggle - remove in production */}
-                        <button
-                          onClick={() => {
-                            toggleAdmin();
-                            handleLogin();
-                          }}
-                          className="w-full text-left px-4 py-2 text-sm text-gray-100  flex items-center"
-                        >
-                          <FiUser className="mr-2 h-4 w-4" />
-                          Login as {isAdmin ? 'User' : 'Admin'}
-                        </button>
-                      </>
-                    ) : (
-                      <>
-                        <Link
-                          href="/account"
-                          className="flex items-center px-4 py-2 text-sm text-gray-100 "
-                          onClick={() => {
-                            handleNavigation();
-                            setIsDropdownOpen(false);
-                          }}
-                        >
-                          <FiUser className="mr-2 h-4 w-4" />
-                          My Profile
-                        </Link>
-                        {isAdmin && (
+                {/* Cart */}
+                <Link 
+                  href="/cart" 
+                  className="relative text-gray-300 hover:text-white transition-colors"
+                  onClick={handleNavigation}
+                >
+                  <FiShoppingBag className="h-5 w-5" />
+                  {cartItemCount > 0 && (
+                    <span className="absolute -top-2 -right-2 bg-gray-300 text-gray-800 text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                      {cartItemCount > 9 ? '9+' : cartItemCount}
+                    </span>
+                  )}
+                </Link>
+
+                {/* Profile Dropdown */}
+                <div className="relative" ref={dropdownRef}>
+                  <button
+                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                    className="text-gray-300 hover:text-white transition-colors"
+                    aria-label="User account"
+                    aria-expanded={isDropdownOpen}
+                  >
+                    <FiUser className="h-5 w-5" />
+                  </button>
+
+                  {isDropdownOpen && (
+                    <div className="absolute right-0 mt-2 w-48 bg-[#171717] rounded-md shadow-lg py-1 z-50">
+                      {!isAuthenticated ? (
+                        <>
                           <Link
-                            href="/admin/dashboard"
-                            className="flex items-center px-4 py-2 text-sm text-gray-100 "
+                            href="/signup"
+                            className="flex items-center px-4 py-2 text-sm text-gray-100 hover:bg-gray-700"
                             onClick={() => {
                               handleNavigation();
                               setIsDropdownOpen(false);
                             }}
                           >
-                            <FiSettings className="mr-2 h-4 w-4" />
-                            Dashboard
+                            <FiUserPlus className="mr-2 h-4 w-4" />
+                            Sign Up
                           </Link>
-                        )}
-                        <button
-                          onClick={() => {
-                            handleLogout();
-                            handleNavigation();
-                          }}
-                          className="w-full text-left px-4 py-2 text-sm text-gray-100 flex items-center"
-                        >
-                          <FiLogOut className="mr-2 h-4 w-4" />
-                          Logout
-                        </button>
-                      </>
-                    )}
-                  </div>
-                )}
+                          <Link
+                            href="/login"
+                            className="flex items-center px-4 py-2 text-sm text-gray-100 hover:bg-gray-700"
+                            onClick={() => {
+                              handleNavigation();
+                              setIsDropdownOpen(false);
+                            }}
+                          >
+                            <FiLogIn className="mr-2 h-4 w-4" />
+                            Login
+                          </Link>
+                          {/* Demo admin toggle - remove in production */}
+                          <button
+                            onClick={() => {
+                              toggleAdmin();
+                              handleLogin();
+                            }}
+                            className="w-full text-left px-4 py-2 text-sm text-gray-100 hover:bg-gray-700 flex items-center"
+                          >
+                            <FiUser className="mr-2 h-4 w-4" />
+                            Login as {isAdmin ? 'User' : 'Admin'}
+                          </button>
+                        </>
+                      ) : (
+                        <>
+                          <Link
+                            href="/account"
+                            className="flex items-center px-4 py-2 text-sm text-gray-100 hover:bg-gray-700"
+                            onClick={() => {
+                              handleNavigation();
+                              setIsDropdownOpen(false);
+                            }}
+                          >
+                            <FiUser className="mr-2 h-4 w-4" />
+                            My Profile
+                          </Link>
+                          {isAdmin && (
+                            <Link
+                              href="/admin/dashboard"
+                              className="flex items-center px-4 py-2 text-sm text-gray-100 hover:bg-gray-700"
+                              onClick={() => {
+                                handleNavigation();
+                                setIsDropdownOpen(false);
+                              }}
+                            >
+                              <FiSettings className="mr-2 h-4 w-4" />
+                              Dashboard
+                            </Link>
+                          )}
+                          <button
+                            onClick={() => {
+                              handleLogout();
+                              handleNavigation();
+                            }}
+                            className="w-full text-left px-4 py-2 text-sm text-gray-100 hover:bg-gray-700 flex items-center"
+                          >
+                            <FiLogOut className="mr-2 h-4 w-4" />
+                            Logout
+                          </button>
+                        </>
+                      )}
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </div>
@@ -402,67 +386,45 @@ const Header = () => {
             className="absolute inset-0 bg-black/50"
             onClick={() => setIsMobileMenuOpen(false)}
           />
-          <div className="absolute left-0 top-0 h-full w-3/4 bg-white p-4">
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-semibold">Menu</h2>
+          <div className="absolute left-0 top-0 h-full w-full max-w-md bg-white p-6 flex flex-col">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-xl font-bold text-center flex-1">Menu</h2>
               <button 
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="p-1"
+                className="p-2 -mr-2"
                 aria-label="Close menu"
               >
-                <FiX className="h-6 w-6" />
+                <FiX className="h-6 w-6 text-gray-600" />
               </button>
             </div>
-            <nav className="space-y-2">
-              <Link
-                href="/"
-                className="block py-2 px-3 hover:bg-gray-100"
-                onClick={() => {
-                  handleNavigation();
-                  setIsMobileMenuOpen(false);
-                }}
-              >
-                Home
-              </Link>
-              <Link
-                href="/products"
-                className="block py-2 px-3 hover:bg-gray-100"
-                onClick={() => {
-                  handleNavigation();
-                  setIsMobileMenuOpen(false);
-                }}
-              >
-                Products
-              </Link>
-              <Link
-                href="/about"
-                className="block py-2 px-3 hover:bg-gray-100"
-                onClick={() => {
-                  handleNavigation();
-                  setIsMobileMenuOpen(false);
-                }}
-              >
-                About Us
-              </Link>
-              <Link
-                href="/contact"
-                className="block py-2 px-3 hover:bg-gray-100"
-                onClick={() => {
-                  handleNavigation();
-                  setIsMobileMenuOpen(false);
-                }}
-              >
-                Contact
-              </Link>
+            <nav className="flex-1 flex flex-col items-center justify-center space-y-2.5">
+              {[
+                { href: "/", label: "Home" },
+                { href: "/products", label: "Products" },
+                { href: "/about", label: "About Us" },
+                { href: "/contact", label: "Contact" },
+              ].map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="w-full text-center py-2.5 px-6 text-base font-medium hover:bg-gray-50 rounded-lg transition-colors duration-200"
+                  onClick={() => {
+                    handleNavigation();
+                    setIsMobileMenuOpen(false);
+                  }}
+                >
+                  {item.label}
+                </Link>
+              ))}
               <button
                 onClick={() => {
                   setIsSearchOpen(true);
                   setIsMobileMenuOpen(false);
                 }}
-                className="w-full text-left py-2 px-3 hover:bg-gray-100 flex items-center"
+                className="w-full py-1.5 px-2 flex items-center justify-center gap-0.5 text-sm font-medium hover:bg-gray-50 rounded-lg transition-colors duration-200"
               >
-                <FiSearch className="mr-2" />
-                Search
+                <FiSearch className="h-3.5 w-3.5" />
+                <span>Search</span>
               </button>
             </nav>
           </div>
