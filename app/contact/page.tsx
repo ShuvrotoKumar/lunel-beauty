@@ -1,15 +1,30 @@
 'use client';
 
-import { useState } from 'react';
-import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn } from 'react-icons/fa';
+import { useState, useRef, useEffect } from 'react';
+import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn, FaChevronDown } from 'react-icons/fa';
 
 export default function ContactPage() {
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const dropdownRef = useRef<HTMLDivElement>(null);
     const [formData, setFormData] = useState({
-        name: '',
+        firstName: '',
+        lastName: '',
         email: '',
         subject: '',
         message: ''
     });
+
+    // Close dropdown when clicking outside
+    useEffect(() => {
+        function handleClickOutside(event: MouseEvent) {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+                setIsDropdownOpen(false);
+            }
+        }
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -23,6 +38,15 @@ export default function ContactPage() {
         e.preventDefault();
         // Handle form submission
         console.log('Form submitted:', formData);
+    };
+
+    // Custom change handler for the dropdown
+    const handleDropdownChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({
+            ...prev,
+            [name]: value
+        }));
     };
 
     return (
@@ -41,7 +65,7 @@ export default function ContactPage() {
                         {/* Contact Form */}
                         <div className="space-y-6">
                             <h2 className="text-2xl font-semibold text-gray-100 mb-6">Send us a message</h2>
-                            <form onSubmit={handleSubmit} className="space-y-6">
+                            <form onSubmit={handleSubmit} className="space-y-6" ref={dropdownRef}>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
                                         <input
@@ -77,20 +101,34 @@ export default function ContactPage() {
                                         required
                                     />
                                 </div>
-                                <div>
-                                    <select
+                                <div className="relative">
+                                    <input
+                                        type="text"
                                         name="subject"
                                         value={formData.subject}
-                                        onChange={handleChange}
-                                        className="w-full px-4 py-3 border text-gray-900 border-gray-300 rounded bg-white focus:outline-none focus:ring-1 focus:ring-gray-400"
+                                        readOnly
+                                        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                                        className="w-full px-4 py-3 border text-gray-900 border-gray-300 rounded bg-white focus:outline-none focus:ring-1 focus:ring-gray-400 cursor-pointer"
+                                        placeholder="Select Subject"
                                         required
-                                    >
-                                        <option value="" disabled hidden>Select Subject</option>
-                                        <option value="General Inquiry">General Inquiry</option>
-                                        <option value="Support">Support</option>
-                                        <option value="Partnership">Partnership</option>
-                                        <option value="Feedback">Feedback</option>
-                                    </select>
+                                    />
+                                    <FaChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 pointer-events-none" />
+                                    {isDropdownOpen && (
+                                        <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded shadow-lg">
+                                            {['General Inquiry', 'Support', 'Partnership', 'Feedback'].map((option) => (
+                                                <div
+                                                    key={option}
+                                                    className={`px-4 py-2 cursor-pointer hover:bg-[#d4a674] hover:text-white ${formData.subject === option ? 'bg-[#d4a674] text-white' : ''}`}
+                                                    onClick={() => {
+                                                        handleChange({ target: { name: 'subject', value: option } } as React.ChangeEvent<HTMLInputElement>);
+                                                        setIsDropdownOpen(false);
+                                                    }}
+                                                >
+                                                    {option}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
                                 </div>
                                 <div>
                                     <textarea

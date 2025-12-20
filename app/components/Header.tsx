@@ -122,10 +122,54 @@ const Header = () => {
   return (
     <header className="sticky top-0 z-50 bg-[#000000] backdrop-blur-md shadow-sm min-h-12 transition-all duration-300">
       <div className="container mx-auto px-4 py-3">
-        <div className="flex flex-col items-center py-4 bg-[#000000] text-gray-200">
-          {/* Logo with leaf icon */}
+        {/* Mobile Header */}
+        <div className="md:hidden flex justify-between items-center">
+          <button 
+            onClick={toggleMobileMenu} 
+            className="text-gray-300 hover:text-white focus:outline-none"
+            aria-label="Toggle menu"
+          >
+            <FiMenu className="h-6 w-6" />
+          </button>
+          
+          <Link href="/" className="flex items-center" onClick={handleNavigation}>
+            <div className="relative w-32 h-10 transition-all duration-300 hover:scale-105">
+              <Image
+                src="/images/logo.png"
+                alt="Lunel Beauty"
+                fill
+                sizes="8rem"
+                className="object-contain"
+                priority
+              />
+            </div>
+          </Link>
+          
+          <div className="flex items-center space-x-4">
+            <button
+              onClick={() => setIsSearchOpen(!isSearchOpen)}
+              className="text-gray-300 hover:text-white transition-colors"
+              aria-label={isSearchOpen ? 'Close search' : 'Open search'}
+            >
+              <FiSearch className="h-5 w-5" />
+            </button>
+            <Link href="/wishlist" className="text-gray-300 hover:text-white transition-colors" onClick={handleNavigation}>
+              <FiHeart className="h-5 w-5" />
+            </Link>
+            <Link href="/cart" className="text-gray-300 hover:text-white relative transition-colors" onClick={handleNavigation}>
+              <FiShoppingBag className="h-5 w-5" />
+              {cartItemCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-white text-black text-xs rounded-full h-4 w-4 flex items-center justify-center">
+                  {cartItemCount > 9 ? '9+' : cartItemCount}
+                </span>
+              )}
+            </Link>
+          </div>
+        </div>
+
+        {/* Desktop Header - Hidden on mobile */}
+        <div className="hidden md:flex flex-col items-center py-4 bg-[#000000] text-gray-200">
           <div className="flex flex-col items-center pt-2 pb-4 bg-[#000000] text-gray-200">
-            {/* Logo with leaf icon */}
             <Link href="/" className="flex items-center -mt-2" onClick={handleNavigation}>
               <div className="relative w-40 h-14 md:w-48 md:h-16 transition-all duration-300 hover:scale-105">
                 <Image
@@ -138,7 +182,6 @@ const Header = () => {
                 />
               </div>
             </Link>
-            {/* Rest of the header content */}
           </div>
 
           {/* Desktop Navigation */}
@@ -330,92 +373,100 @@ const Header = () => {
 
         {/* Mobile Search Bar - Only shows when search is open on mobile */}
         {(isSearchOpen && isMobile) && (
-          <div className="mt-3 md:hidden">
-            <form onSubmit={handleSearch} className="flex">
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search products..."
-                className="flex-1 px-4 py-2 text-base border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-[#FF9494]"
-                autoFocus
-              />
-              <button
-                type="submit"
-                className="bg-[#FF9494] text-white px-4 py-2 rounded-r-lg hover:bg-[#ff7a7a] transition-colors"
-              >
-                Search
-              </button>
-            </form>
+          <div className="md:hidden fixed inset-0 bg-black bg-opacity-90 z-50 p-4 pt-20">
+            <div className="relative">
+              <form onSubmit={handleSearch} className="flex w-full">
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search products..."
+                  className="flex-1 px-4 py-3 text-base rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF9494] bg-gray-800 text-white"
+                  autoFocus
+                />
+                <button
+                  type="button"
+                  onClick={() => setIsSearchOpen(false)}
+                  className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white"
+                >
+                  <FiX className="h-6 w-6" />
+                </button>
+              </form>
+            </div>
           </div>
         )}
 
         {/* Mobile Menu */}
-        {isMobileMenuOpen && (
-          <div className="md:hidden mt-4 pb-4">
-            <nav className="flex flex-col space-y-3">
+        <div className={`fixed inset-0 z-50 ${isMobileMenuOpen ? 'block' : 'hidden'} md:hidden`}>
+          <div 
+            className="absolute inset-0 bg-black/50"
+            onClick={() => setIsMobileMenuOpen(false)}
+          />
+          <div className="absolute left-0 top-0 h-full w-3/4 bg-white p-4">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-xl font-semibold">Menu</h2>
+              <button 
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="p-1"
+                aria-label="Close menu"
+              >
+                <FiX className="h-6 w-6" />
+              </button>
+            </div>
+            <nav className="space-y-2">
               <Link
                 href="/"
-                className="text-gray-700 hover:text-[#FF9494] py-2 transition-colors"
-                onClick={handleNavigation}
+                className="block py-2 px-3 hover:bg-gray-100"
+                onClick={() => {
+                  handleNavigation();
+                  setIsMobileMenuOpen(false);
+                }}
               >
                 Home
               </Link>
               <Link
-                href="/about"
-                className="text-gray-700 hover:text-[#FF9494] py-2 transition-colors"
-                onClick={handleNavigation}
-              >
-                About Us
-              </Link>
-              <Link
                 href="/products"
-                className="text-gray-700 hover:text-[#FF9494] py-2 transition-colors"
-                onClick={handleNavigation}
+                className="block py-2 px-3 hover:bg-gray-100"
+                onClick={() => {
+                  handleNavigation();
+                  setIsMobileMenuOpen(false);
+                }}
               >
                 Products
               </Link>
               <Link
-                href="/shop"
-                className="text-gray-700 hover:text-[#FF9494] py-2 transition-colors"
-                onClick={handleNavigation}
+                href="/about"
+                className="block py-2 px-3 hover:bg-gray-100"
+                onClick={() => {
+                  handleNavigation();
+                  setIsMobileMenuOpen(false);
+                }}
               >
-                Shop
-              </Link>
-              <Link
-                href="/blog"
-                className="text-gray-700 hover:text-[#FF9494] py-2 transition-colors"
-                onClick={handleNavigation}
-              >
-                Blog
+                About Us
               </Link>
               <Link
                 href="/contact"
-                className="text-gray-700 hover:text-[#FF9494] py-2 transition-colors"
-                onClick={handleNavigation}
+                className="block py-2 px-3 hover:bg-gray-100"
+                onClick={() => {
+                  handleNavigation();
+                  setIsMobileMenuOpen(false);
+                }}
               >
                 Contact
-              </Link>
-              <Link
-                href="/faq"
-                className="text-gray-700 hover:text-[#FF9494] py-2 transition-colors"
-                onClick={handleNavigation}
-              >
-                FAQ
               </Link>
               <button
                 onClick={() => {
                   setIsSearchOpen(true);
                   setIsMobileMenuOpen(false);
                 }}
-                className="flex items-center text-gray-700 hover:text-[#FF9494] py-2 transition-colors w-full text-left"
+                className="w-full text-left py-2 px-3 hover:bg-gray-100 flex items-center"
               >
-                <FiSearch className="mr-2 h-5 w-5" />
+                <FiSearch className="mr-2" />
                 Search
               </button>
             </nav>
           </div>
-        )}
+        </div>
       </div>
     </header>
   );
