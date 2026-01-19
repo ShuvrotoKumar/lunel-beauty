@@ -1,6 +1,14 @@
 'use client';
 
-import { FilterState } from '../app/products/types';
+import type React from 'react';
+
+type FilterState = {
+  categories: string[];
+  priceRange: [number, number];
+  skinTypes: string[];
+  ingredients: string[];
+  sortBy: 'best-selling' | 'price-asc' | 'price-desc' | 'newest';
+};
 
 interface FilterSidebarProps {
   filters: FilterState;

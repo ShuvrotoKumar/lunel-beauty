@@ -1,11 +1,12 @@
 'use client';
 
+import type React from 'react';
 import { useState, useRef, useEffect } from 'react';
 import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn, FaChevronDown } from 'react-icons/fa';
 
 export default function ContactPage() {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const dropdownRef = useRef<HTMLDivElement>(null);
+    const dropdownRef = useRef<HTMLFormElement>(null);
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
