@@ -9,10 +9,6 @@ const nextConfig = {
   images: {
     domains: ['images.unsplash.com'], // Add any image domains you need
   },
-  experimental: {
-    // Enable the new app directory
-    appDir: true,
-  },
 }
 
 module.exports = nextConfig

@@ -3,7 +3,17 @@ import Image from 'next/image';
 import { Button } from '@/app/components/ui/button';
 import Link from 'next/link';
 
-const products = [
+type FeaturedProduct = {
+  id: number;
+  name: string;
+  price: string;
+  image: string;
+  category: string;
+  brand?: string;
+  description?: string;
+};
+
+const products: FeaturedProduct[] = [
   {
     id: 1,
     name: 'Hydrating Facial Cleanser',
